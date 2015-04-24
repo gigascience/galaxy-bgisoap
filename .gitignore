@@ -1,0 +1,11 @@
+.hg*
+
+# Python bytecode
+*.pyc
+
+# Misc
+*.orig
+.DS_Store
+*.rej
+*~
+.idea
