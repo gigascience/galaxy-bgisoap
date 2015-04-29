@@ -54,13 +54,13 @@ def __main__():
 
     #Set up command line call
     if opts.analysis_settings_type == "single" and opts.default_full_settings_type == "default":
-        cmd = "soap1 -d %s -a %s -o %s > %s" % (opts.ref_seq, opts.forward_set, opts.alignment_out, tmp_out)
+        cmd = "soap -d %s -a %s -o %s > %s" % (opts.ref_seq, opts.forward_set, opts.alignment_out, tmp_out)
     elif  opts.analysis_settings_type == "paired" and opts.default_full_settings_type == "default":
-        cmd = "soap1 -d %s -a %s -b %s -o %s -2 %s -m %s -x %s > %s" % (opts.ref_seq, opts.forward_set, opts.reverse_set, opts.alignment_out, opts.unpaired_alignment_out, opts.min_insert_size, opts.max_insert_size, tmp_out)
+        cmd = "soap -d %s -a %s -b %s -o %s -2 %s -m %s -x %s > %s" % (opts.ref_seq, opts.forward_set, opts.reverse_set, opts.alignment_out, opts.unpaired_alignment_out, opts.min_insert_size, opts.max_insert_size, tmp_out)
     elif opts.analysis_settings_type == "single" and opts.default_full_settings_type == "full":
-        cmd = "soap1 -d %s -a %s -o %s -s %s -v %s -g %s -w %s -e %s -c %s -f %s -r %s -n %s -p %s > %s" % (opts.ref_seq, opts.forward_set, opts.alignment_out, opts.seed_size, opts.max_mismatches, opts.max_gap_size, opts.max_best_hits, opts.gap_exist, opts.trim, opts.filter, opts.report_repeats, opts.ref_chain_align, opts.num_processors, tmp_out)
+        cmd = "soap -d %s -a %s -o %s -s %s -v %s -g %s -w %s -e %s -c %s -f %s -r %s -n %s -p %s > %s" % (opts.ref_seq, opts.forward_set, opts.alignment_out, opts.seed_size, opts.max_mismatches, opts.max_gap_size, opts.max_best_hits, opts.gap_exist, opts.trim, opts.filter, opts.report_repeats, opts.ref_chain_align, opts.num_processors, tmp_out)
     elif opts.analysis_settings_type == "paired" and opts.default_full_settings_type == "full":
-        cmd = "soap1 -d %s -a %s -b %s -o %s -2 %s -m %s -x %s -s %s -v %s -g %s -w %s -e %s -c %s -f %s -r %s -n %s -p %s > %s" % (opts.ref_seq, opts.forward_set, opts.reverse_set, opts.alignment_out, opts.unpaired_alignment_out, opts.min_insert_size, opts.max_insert_size, opts.seed_size, opts.max_mismatches, opts.max_gap_size, opts.max_best_hits, opts.gap_exist, opts.trim, opts.filter, opts.report_repeats, opts.ref_chain_align, opts.num_processors, tmp_out)
+        cmd = "soap -d %s -a %s -b %s -o %s -2 %s -m %s -x %s -s %s -v %s -g %s -w %s -e %s -c %s -f %s -r %s -n %s -p %s > %s" % (opts.ref_seq, opts.forward_set, opts.reverse_set, opts.alignment_out, opts.unpaired_alignment_out, opts.min_insert_size, opts.max_insert_size, opts.seed_size, opts.max_mismatches, opts.max_gap_size, opts.max_best_hits, opts.gap_exist, opts.trim, opts.filter, opts.report_repeats, opts.ref_chain_align, opts.num_processors, tmp_out)
 
     #print cmd
 
