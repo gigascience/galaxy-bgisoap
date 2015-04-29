@@ -171,11 +171,11 @@
     </inputs>
     <outputs>
         <data name="alignment_out"
-              format="txt"
+              format="tabular"
               label="soap1.out.alignment">
         </data>
         <data name="unpaired_alignment_out"
-              format="txt"
+              format="tabular"
               label="soap1.out.unpaired">
             <filter>analysis_settings['analysis_type'] == "paired"</filter>
         </data>
