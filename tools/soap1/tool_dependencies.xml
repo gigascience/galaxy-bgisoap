@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="soap" version="1.11">
+        <repository changeset_revision="" name="package_soap_1_11" owner="peterli" toolshed="" />
+    </package>
+</tool_dependency>
