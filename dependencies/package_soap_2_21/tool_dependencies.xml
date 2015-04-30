@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="soap" version="2.21">
+        <install version="1.0">
+            <actions_group>
+                <!-- Download executable for SOAP1 compatible with 64-bit Linux -->
+                <actions os="linux" architecture="x86_64">
+                    <action type="download_by_url">https://github.com/gigascience/bgi-soap2/archive/master.zip</action>
+                    <action type="move_directory_files">
+                        <source_directory>executables/2.21/x86_64</source_directory>
+                        <destination_directory>$INSTALL_DIR/bin</destination_directory>
+                    </action>
+                    <action type="chmod"><file mode="755">$INSTALL_DIR/bin/soap</file></action>
+                    <action type="chmod"><file mode="755">$INSTALL_DIR/bin/2bwt-builder</file></action>
+                </actions>
+                <!-- This actions tag is only processed if none of the above tags resulted in a successful installation -->
+                <actions>
+                    <action type="shell_command">echo "ERROR: Automated installation on your operating system and CPU architecture combination is not yet supported."</action>
+                    <action type="shell_command">echo "Your machine details (the output from 'uname' and 'arch'):"</action>
+                    <action type="shell_command">uname</action>
+                    <action type="shell_command">arch</action>
+                    <action type="shell_command">echo "Please report this via https://github.com/gigascience/galaxy-bgisoap/issues"</action>
+                    <action type="shell_command">false</action>
+                    <!-- The 'false' command will return an error, so Galaxy should treat this as a failed install -->
+                </actions>
+                <!-- The $PATH environment variable is only set if one of the above <actions> tags resulted in a successful installation -->
+                <action type="set_environment">
+                    <environment_variable name="PATH" action="prepend_to">$INSTALL_DIR/bin</environment_variable>
+                </action>
+            </actions_group>
+        </install>
+        <readme>
+Downloads the precompiled 64bit Linux soap and 2bwt-builder binaries.
+        </readme>
+    </package>
+</tool_dependency>
