@@ -4,7 +4,7 @@
         <requirement type="package" version="2.21">soap</requirement>
     </requirements>
     <command interpreter="python">
-        soap2.py
+        soap2_wrapper.py
 
         ##Use precomputed indexes
         --ref="${indices.fields.path}"
@@ -40,7 +40,7 @@
     </command>
     <inputs>
         <param name="indices" type="select" label="Select a reference genome">
-            <options from_data_table="2bwtbuilder_indexes">
+            <options from_data_table="2bwt_indexes">
                 <validator type="no_options" message="No indexes are available" />
             </options>
         </param>
