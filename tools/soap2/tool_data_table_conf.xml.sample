@@ -1,0 +1,8 @@
+<tables>
+    <!-- Locations of 2BWT indexes -->
+    <table name="2bwt_indexes" comment_char="#">
+        <columns>value, name, path</columns>
+        <file path="tool-data/2bwt_index.loc" />
+    </table>
+</tables>
+
