@@ -1,0 +1,66 @@
+<project name="galaxy_bgisoap" default="soap2" basedir=".">
+    <description>
+        A build file for generating Galaxy packages for individual tools.
+    </description>
+    <!-- Global properties for build -->
+    <property file="build.properties"/>
+    <property name="build.dir" location="./build"/>
+    <property name="dependencies.dir" location="./dependencies"/>
+    <property name="test-data.dir" location="./test-data"/>
+    <property name="tool-data.dir" location="./tool-data"/>
+    <property name="tools.dir" location="./tools"/>
+
+    <target name="init">
+        <!-- Create time stamp -->
+        <tstamp/>
+        <!-- Check build dir -->
+        <available file="./${build.dir}" type="dir" property="build.found"/>
+    </target>
+
+    <target name="build" unless="build.found">
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build.dir}"/>
+    </target>
+
+    <target name="package_soap_1_11" depends="build">
+        <mkdir dir="${build.dir}/package_soap_1_11"/>
+        <copy todir="${build.dir}/package_soap_1_11">
+            <fileset dir="${dependencies.dir}/package_soap_1_11"/>
+        </copy>
+    </target>
+
+    <target name="soap1" depends="build">
+        <mkdir dir="${build.dir}/soap1"/>
+        <copy todir="${build.dir}/soap1">
+            <fileset dir="${tools.dir}/soap1"/>
+        </copy>
+        <mkdir dir="${build.dir}/soap1/test-data"/>
+        <copy file="${test-data.dir}/ref.fa" todir="${build.dir}/soap1/test-data"/>
+        <copy file="${test-data.dir}/test_PE1.fa" todir="${build.dir}/soap1/test-data"/>
+        <copy file="${test-data.dir}/test_PE2.fa" todir="${build.dir}/soap1/test-data"/>
+    </target>
+
+    <target name="package_soap_2_21" depends="build">
+        <mkdir dir="${build.dir}/package_soap_2_21"/>
+        <copy todir="${build.dir}/package_soap_2_21">
+            <fileset dir="${dependencies.dir}/package_soap_2_21"/>
+        </copy>
+    </target>
+
+    <target name="soap2" depends="build">
+        <mkdir dir="${build.dir}/soap2"/>
+        <copy todir="${build.dir}/soap2">
+            <fileset dir="${tools.dir}/soap2"/>
+        </copy>
+        <mkdir dir="${build.dir}/soap2/test-data"/>
+        <copy file="${test-data.dir}/test_PE1.fa" todir="${build.dir}/soap2/test-data"/>
+        <copy file="${test-data.dir}/test_PE2.fa" todir="${build.dir}/soap2/test-data"/>
+        <mkdir dir="${build.dir}/soap2/tool-data"/>
+        <copy file="${tool-data.dir}/2bwt_index.loc.sample" todir="${build.dir}/soap2/tool-data"/>
+    </target>
+
+    <target name="clean" description="clean up">
+        <!-- Delete build directory -->
+        <delete dir="${build.dir}"/>
+    </target>
+</project>
