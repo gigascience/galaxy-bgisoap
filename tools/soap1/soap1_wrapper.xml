@@ -2,10 +2,9 @@
     <description>using SOAP1</description>
     <requirements>
         <requirement type="package" version="1.11">soap</requirement>
-        <!--<requirement type="package">soap1</requirement>-->
     </requirements>
     <command interpreter="python">
-        soap1.py
+        soap1_wrapper.py
 
         ## Configure reference genome
         --ref_seq=$ref_seq
