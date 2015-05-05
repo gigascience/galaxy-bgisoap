@@ -1,0 +1,40 @@
+<tool id="soap2sam" name="soap2sam" version="0.1">
+  <description>- convert SOAP into SAM format</description>
+  <command interpreter="perl">
+  	soap2sam.pl 
+  	#if $single_paired == 'paired':
+  	-p 
+  	#end if
+  	$soapfile > $soap2sam</command>
+  <inputs>
+    <param name="soapfile"
+           format="SOAP"
+           type="data"
+           label="SOAP file"/>
+    <param name="single_paired"
+           type="select"
+           value="paired"
+           label="What type of data are you using?">
+       <option value="paired">Paired</option>
+       <option value="single">Single</option>
+    </param>
+  </inputs>
+  <outputs>
+    <data name="soap2sam"
+          format="SAM"
+          type="data"
+          label="soap2sam.out"/>
+  </outputs>
+  <tests>
+  </tests>
+  <help>
+**What it does**
+
+SOAP2SAM converts sequence alignments from `SOAP format`_ into `SAM format`_.
+
+.. _SOAP format: http://soap.genomics.org.cn/soap1/#Formatofoutput
+
+.. _SAM format: http://samtools.sourceforge.net/SAM1.pdf
+
+  </help>
+</tool>
