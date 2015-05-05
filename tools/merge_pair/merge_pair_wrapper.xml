@@ -1,0 +1,39 @@
+<tool id="merge_pair_wrapper" name="Merge pair" version="0.1">
+    <description>- merges a pair of corrected read libraries</description>
+    <command interpreter="python">
+        merge_pair_wrapper.py
+
+        ##Inputs
+        --corr_filelist=$corr_filelist
+
+        ##Outputs for forward and reverse files
+        --pair=$pair
+        --single=$single
+        --readsum=$readsum
+    </command>
+    <inputs>
+        <param name="corr_filelist"
+               type="data"
+               format="input"
+               label="List of corrected read files"/>
+    </inputs>
+    <outputs>
+        <data name="pair"
+              format="fasta"
+              label="merge.pair"/>
+        <data name="single"
+              format="fasta"
+              label="merge.single"/>
+        <data name="readsum"
+              format="Tabular"
+              label="readsum"/>
+    </outputs>
+    <help>
+**What it does**
+
+Combines two sets of sequence reads.
+    </help>
+</tool>
+
+
+
