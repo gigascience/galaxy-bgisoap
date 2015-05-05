@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="soapec" version="1.0">
+        <repository  changeset_revision="" name="package_soapec_1_0" owner="peterli" toolshed="" />
+    </package>
+</tool_dependency>
