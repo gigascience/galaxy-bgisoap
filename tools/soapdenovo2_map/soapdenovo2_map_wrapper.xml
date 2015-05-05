@@ -1,0 +1,150 @@
+<tool id="soapdenovo2_map" name="map" version="0.1" force_history_refresh="True">
+    <description>reads onto contigs</description>
+    <requirements>
+        <requirement type="package" version="2.04">soapdenovo</requirement>
+    </requirements>
+    <command interpreter="python">
+        soapdenovo2_map_wrapper.py
+
+        ## Inputs
+        --contig=$contig
+        --contigindex=$contigindex
+        --soap_config=$soap_config
+
+        ## Check if using default or custom parameters
+        --default_full_settings_type=$default_full_settings.settings_type
+        #if $default_full_settings.settings_type == "full"
+            ##Commented out to keep under local control
+            ##--ncpu=$default_full_settings.ncpu
+            --output_gap_related_reads=$default_full_settings.output_gap_related_reads
+            --kmer_r2c=$default_full_settings.kmer_r2c
+        #end if
+
+        ## Outputs
+        --pegrads=$pegrads
+        --read_on_contig=$read_on_contig
+        --read_in_gap=$read_in_gap
+
+    </command>
+    <inputs>
+        <param name="soap_config"
+               type="data"
+               format="input"
+               label="soap.config output from pregraph step"/>
+        <param name="contig"
+               type="data"
+               format="input"
+               label="contig output from contig step"/>
+        <param name="contigindex"
+               type="data"
+               format="input"
+               label="contigIndex output from contig step"/>
+        <!--Other parameters -->
+        <conditional name="default_full_settings">
+            <param name="settings_type"
+                   type="select"
+                   label="SOAPdenovo2 map settings to use"
+                   help="Default settings is suitable for most mapping needs. If you want full control, use Full parameter list">
+                <option value="default">Default</option>
+                <option value="full">Full parameter list</option>
+            </param>
+            <when value="default"/>
+            <when value="full">
+                <param name="output_gap_related_reads"
+                       type="select"
+                       value="NO"
+                       optional="true"
+                       label="Output gap related reads in map step for using SRkgf to fill gap">
+                    <option value="NO">No</option>
+                    <option value="YES">Yes</option>
+                </param>
+                <!-- Commented out to keep under local control -->
+                <!--<param name="ncpu"-->
+                       <!--type="integer"-->
+                       <!--value="8"-->
+                       <!--label="Number of CPUs to use"/>-->
+                <param name="kmer_r2c"
+                       type="integer"
+                       value="13"
+                       min="13"
+                       max="63"
+                       label="kmer size to be used for mapping reads to contigs"/>
+            </when>
+        </conditional>
+    </inputs>
+    <outputs>
+        <data name="pegrads"
+              format="txt"
+              label="map.out.peGrads">
+        </data>
+        <data name="read_on_contig"
+              format="txt"
+              label="map.out.readOnContig">
+        </data>
+        <data name="read_in_gap"
+              format="txt"
+              label="map.out.readOnContig">
+        </data>
+    </outputs>
+    <tests>
+        <test>
+            <param name="settings_type" value="default"/>
+
+            <param name="soap_config"
+                   value="bgisoap/soapdenovo2/soap.config"/>
+            <param name="contig"
+                   value="bgisoap/soapdenovo2/contig_output_from_contig.fasta"/>
+            <param name="contigindex"
+                   value="bgisoap/soapdenovo2/contig_index.txt"/>
+
+            <output name="pegrads">
+                <assert_contents>
+                    <has_text text="1196"/>
+                </assert_contents>
+            </output>
+
+            <output name="read_on_contig"
+                    file="bgisoap/soapdenovo2/readOnContig.gz"/>
+            <output name="read_in_gap"
+                    file="bgisoap/soapdenovo2/readInGap.gz"/>
+
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+SOAPdenovo2 is a short-read assembly method for building de novo draft
+assemblies of human-sized genomes. It is specially designed to assemble short
+reads from the Illumina Genome Analyzer (GA).
+
+This Galaxy tool is a wrapping of the map operation in SOAPdenovo2. It analyses
+the outputs (out.contig and out.ContigIndex) created by the previous contig step
+to map the reads onto contigs.
+
+-----
+
+**Output files from Map**::
+
+  peGrads           Information for each clone library: insert-size, read index
+                    upper bound, rank and pair number cutoff for a reliable
+                    link. This file can be revised manually for scaffolding
+                    tuning.
+
+  readOnContig      Location of reads on contigs which are referred to by their
+                    edge index. Note that about half of the contigs are not
+                    listed in the contig file as their reverse-complementry
+                    counterparts are included already.
+
+  readInGap         Contains reads that are located in gaps between contigs.
+                    This information is used to close gaps in scaffolds if the
+                    -F flag is set.
+
+-----
+
+**More information**
+
+For test data and more detailed information, click here_.
+
+.. _here: http://soap.genomics.org.cn/soapdenovo.html
+    </help>
+</tool>
