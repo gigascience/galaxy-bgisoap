@@ -1,0 +1,278 @@
+<tool id="soapdenovo2_scaff_wrapper" name="scaff" version="0.1" force_history_refresh="True">
+    <description>- generate final assembly results</description>
+    <requirements>
+        <requirement type="package" version="2.04">soapdenovo</requirement>
+    </requirements>
+    <command interpreter="python">
+        soapdenovo2_scaff_wrapper.py
+
+        ## Inputs
+        --arc=$arc
+        --pegrads=$pegrads
+        --pregraph_basic=$pregraph_basic
+        --updated_edge=$updated_edge
+        --contig=$contig
+        --read_in_gap=$read_in_gap
+        --read_on_contig=$read_on_contig
+
+        ## Check if using default or custom parameters
+        --default_full_settings_type=$default_full_settings.settings_type
+        #if $default_full_settings.settings_type == "full"
+            --fill_gaps=$default_full_settings.fill_gaps
+            ##--compatible_mode=$default_full_settings.compatible_mode
+            --unmask_contigs=$default_full_settings.unmask_contigs
+            --keep_contigs_connected=$default_full_settings.keep_contigs_connected
+            --ass_visual=$default_full_settings.ass_visual
+            --gap_len_diff=$default_full_settings.gap_len_diff
+            --min_contig_len=$default_full_settings.min_contig_len
+            --min_contig_cvg=$default_full_settings.min_contig_cvg
+            --max_contig_cvg=$default_full_settings.max_contig_cvg
+            --insert_size_upper_bound=$default_full_settings.insert_size_upper_bound
+            --bubble_coverage=$default_full_settings.bubble_coverage
+            --genome_size=$default_full_settings.genome_size
+            ##Commented out to keep under local control
+            ##--ncpu=$default_full_settings.ncpu
+        #end if
+
+        ## Outputs
+        --new_contig_index=$new_contig_index
+        --links=$links
+        --scaf_gap=$scaf_gap
+        --scaf=$scaf
+        --gap_seq=$gap_seq
+        --scaf_seq=$scaf_seq
+        --contig_positions_scaff=$contig_positions_scaff
+        --bubble_in_scaff=$bubble_in_scaff
+        --scaf_stats=$scaf_stats
+    </command>
+    <inputs>
+        <param name="pregraph_basic"
+               type="data"
+               label="preGraphBasic output from pregraph step"/>
+        <param name="arc"
+               type="data"
+               label="arc output from contig step"/>
+        <param name="contig"
+               type="data"
+               label="contig output from contig step"/>
+        <param name="updated_edge"
+               type="data"
+               label="updatedEdge output from contig step"/>
+        <param name="pegrads"
+               type="data"
+               label="peGrads output from map step"/>
+        <param name="read_in_gap"
+               type="data"
+               label="readInGap output from map step"/>
+        <param name="read_on_contig"
+               type="data"
+               label="readOnContig output from map step"/>
+        <!--Other parameters -->
+        <conditional name="default_full_settings">
+            <param name="settings_type"
+                   type="select"
+                   label="SOAPdenovo2 scaff settings to use"
+                   help="Default settings is suitable for most mapping needs. If you want full control, use Full parameter list">
+                <option value="default">Default</option>
+                <option value="full">Full parameter list</option>
+            </param>
+            <when value="default"/>
+            <when value="full">
+                <param name="fill_gaps"
+                       type="select"
+                       value="No"
+                       label="Fill gaps in scaffold">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </param>
+                <!-- Compatible mode is commented out due to problems of its use -->
+                <!--
+                <param name="compatible_mode"
+                       type="select"
+                       value="No"
+                       label="Use compatibility mode to build scaffold with contigs produced by version 1.05">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </param>
+                -->
+                <param name="unmask_contigs"
+                       type="select"
+                       value="mask"
+                       optional="true"
+                       label=" un-mask contigs with high/low coverage before scaffolding">
+                    <option value="mask">Mask</option>
+                    <option value="unmask">Unmask</option>
+                </param>
+                <param name="keep_contigs_connected"
+                       type="select"
+                       value="NO"
+                       label="Keep contigs weakly connected to other contigs in scaffold">
+                    <option value="NO">No</option>
+                    <option value="YES">YEs</option>
+                </param>
+                <param name="ass_visual"
+                       type="select"
+                       value="NO"
+                       optional="true"
+                       label="Output visualization information of assembly">
+                    <option value="NO">No</option>
+                    <option value="YES">Yes</option>
+                </param>
+                <param name="gap_len_diff"
+                       type="integer"
+                       value="50"
+                       label="Allowed length difference between estimated and filled gaps"/>
+                <param name="min_contig_len"
+                       type="integer"
+                       value="20"
+                       label="Shortest contig for scaffolding"/>
+                <param name="min_contig_cvg"
+                       type="float"
+                       value="0.1"
+                       label="Minimum contig coverage (c*avgCvg)"
+                       help="Contigs shorter than 100bp with coverage smaller than c*avgCvg will be masked before scaffolding unless -u is set"/>
+                <param name="max_contig_cvg"
+                       type="float"
+                       value="2"
+                       label="Maximum contig coverage (C*avgCvg)"
+                       help="Contigs with coverage larger than C*avgCvg or contigs shorter than 100bp with coverage larger than 0.8*C*avgCvg will be masked before scaffolding unless -u is set"/>
+                <param name="insert_size_upper_bound"
+                       type="float"
+                       value="1.5"
+                       label="insertSizeUpperBound"
+                       help="Will be used as upper bound of insert size for large insert size ( > 1000) when handling pair-end connections between contigs if b is set to larger than 1"/>
+                <param name="bubble_coverage"
+                       type="float"
+                       value="0.6"
+                       label="Bubble coverage"
+                       help="Remove contig with lower coverage in bubble structure if both contigs' coverage are smaller than bubbleCoverage*avgCvg"/>
+                <param name="genome_size"
+                       type="integer"
+                       value="0"
+                       label="Genome size"
+                       help="Genome size for statistics"/>
+                <!-- Commented out to keep under local control -->
+                <!--<param name="ncpu"-->
+                       <!--type="integer"-->
+                       <!--value="8"-->
+                       <!--label="Number of CPUs to use"/>-->
+            </when>
+        </conditional>
+    </inputs>
+    <outputs>
+        <data name="new_contig_index"
+              format="txt"
+              label="scaff.out.newContigIndex">
+        </data>
+        <data name="links"
+              format="txt"
+              label="scaff.out.links">
+        </data>
+        <data name="scaf_gap"
+              format="txt"
+              label="scaff.out.scaf_gap">
+        </data>
+        <data name="scaf"
+              format="txt"
+              label="scaff.out.scaf">
+        </data>
+        <data name="gap_seq"
+              format="txt"
+              label="scaff.out.gapSeq">
+        </data>
+        <data name="scaf_seq"
+              format="txt"
+              label="scaff.out.scafSeq">
+        </data>
+        <data name="contig_positions_scaff"
+              format="txt"
+              label="scaff.out.contigPosInscaff">
+        </data>
+        <data name="bubble_in_scaff"
+              format="txt"
+              label="scaff.out.bubbleInScaff">
+        </data>
+        <data name="scaf_stats"
+              format="txt"
+              label="scaff.out.scaffStatistics">
+        </data>
+    </outputs>
+    <tests>
+        <test>
+            <param name="settings_type" value="default"/>
+
+            <param name="pregraph_basic"
+                   value="bgisoap/soapdenovo2/pregraphbasic.txt"/>
+            <param name="arc"
+                   value="bgisoap/soapdenovo2/arc.txt"/>
+            <param name="contig"
+                   value="bgisoap/soapdenovo2/contig_output_from_contig.fasta"/>
+            <param name="updated_edge"
+                   value="bgisoap/soapdenovo2/updatedEdge.txt"/>
+            <param name="pegrads"
+                   value="bgisoap/soapdenovo2/pegrads.txt"/>
+            <param name="read_in_gap"
+                   value="bgisoap/soapdenovo2/readInGap.gz"/>
+            <param name="readOnContig"
+                   value="bgisoap/soapdenovo2/readOnContig.gz"/>
+
+            <output name="scaf_stats">
+                <assert_contents>
+                    <has_text text="Size_includeN"/>
+                </assert_contents>
+            </output>
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+SOAPdenovo2 is a short-read assembly method for building de novo draft
+assemblies of human-sized genomes. It is specially designed to assemble short
+reads from the Illumina Genome Analyzer (GA).
+
+This Galaxy tool is a wrapping of the scaff operation in SOAPdenovo2. This
+operation analyses the outputs created by the previous SOAPdenovo2 operations
+and generates the final scaffold assembly results.
+
+-----
+
+**Output files from Scaff**::
+
+
+  newContigIndex    Contigs are sorted by length before scaffolding and their
+                    new index are listed in this file. This is useful for
+                    relating contigs in *.contig file with those in *.links.
+
+  links             Links between contigs established by read pairs. New index
+                    are used.
+
+  scaf_gap          Contigs in gaps found by the contig graph outputted by the
+                    contig identification procedure. The new indices are used.
+
+  scaf              Contains contigs associated with each scaffold: contig index
+                    (concordant to index in *.contig),  approximate start
+                    position on scaffold, orientation, contig length, and its
+                    links to others contigs.
+
+  gapSeq            Gap sequences between contigs.
+
+  scafSeq           Sequences of each scaffolds.
+
+  contigPosInscaff  Position of contigs in each scaffold.
+
+  bubbleInScaff     Contigs can form bubble structures in scaffolds. Every two
+                    contigs form a bubble and the contig with higher coverage
+                    will be kept in scaffold.
+
+  scafStatistics    Provides statistical information on the final scaffold and
+                    contigs.
+
+-----
+
+**More information**
+
+For test data and more detailed information, click here_.
+
+.. _here: http://soap.genomics.org.cn/soapdenovo.html
+    </help>
+</tool>
