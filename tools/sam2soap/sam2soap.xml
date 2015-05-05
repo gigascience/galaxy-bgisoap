@@ -1,0 +1,30 @@
+<tool id="sam2soap" name="sam2soap" version="0.1">
+  <description>- convert SAM into SOAP format</description>
+  <command interpreter="python">sam2soap.py $samfile > "$sam2soap"</command>
+  <inputs>
+    <param name="samfile"
+           format="txt"
+           type="data"
+           label="SAM file"/>
+  </inputs>
+  <outputs>
+    <data name="sam2soap"
+          format="SOAP"
+          label="sam2soap.out"/>
+  </outputs>
+  <tests>
+  </tests>
+  <help>
+**What it does**
+
+SAM2SOAP converts sequence alignments from `SAM format`_ into   `SOAP format`_.
+
+.. _SAM format: http://samtools.sourceforge.net/SAM1.pdf
+
+.. _SOAP format: http://soap.genomics.org.cn/soap1/#Formatofoutput
+
+**Attribution**
+
+SAM2SOAP was written by Peter Briggs and Casey Bergman at University of Manchester, 2012.
+  </help>
+</tool>
