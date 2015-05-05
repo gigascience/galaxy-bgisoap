@@ -1,0 +1,37 @@
+<tool id="extract_acgt" name="Extract ACGT" version="0.1">
+    <description> from scaffolds</description>
+    <command interpreter="perl">get_scaftig.pl $scafseq_gc_fa > "$scafseq_gc_ctg_fa"</command>
+    <inputs>
+    <param name="scafseq_gc_fa"
+               type="data"
+               format="fasta"
+               label="scaffolds"/>
+    </inputs>
+    <outputs>
+        <data name="scafseq_gc_ctg_fa"
+              format="txt"
+              label="contigs"/>
+    </outputs>
+    <tests>
+    </tests>
+    <help>
+**What it does**
+
+The main purpose of this tool is to extract continuous ACGT sequences from
+scaffolds, thereby breaking scaffolds at 'N' regions.
+
+For example, if the scaffold sequence is:
+
+ATGCCGTAGATTGAAGCAGAGGGCCGNNNNNNNNNNNNTAGATACAGGTTGCTCTAGACAGAG
+
+Then this scaffold will be broken into two sequences:
+
+ATGCCGTAGATTGAAGCAGAGGGCCG and TAGATACAGGTTGCTCTAGACAGAG
+
+-----
+
+**Attribution**
+
+This tool was written by Ruan Jue @ BGI-SZ.
+    </help>
+</tool>
