@@ -1,0 +1,515 @@
+<tool id="soapdenovo2_pregraph_wrapper" name="pregraph" version="0.1" force_history_refresh="True">
+    <description>- construct Bruijn graph</description>
+    <requirements>
+        <requirement type="package" version="2.04">soapdenovo</requirement>
+    </requirements>
+    <command interpreter="python">
+        soapdenovo2_pregraph_wrapper.py $config_file
+
+        ## Reference source
+        --file_source=$config_source.config_source_select
+        #if $config_source.config_source_select == "history":
+          ##Select configuration from history
+          --configuration=$config_source.own_file
+        #end if
+
+        ## Mandatory params
+        --kmer_size=$kmer_size
+        ## Commented out to keep control of thread number
+        ##--ncpu=$ncpu
+        --kmer_freq_cutoff=$kmer_freq_cutoff
+
+        ## Check if using default or custom parameters
+        --default_full_settings_type=$default_full_settings.settings_type
+        #if $default_full_settings.settings_type == "full"
+          --init_memory_assumption=$default_full_settings.init_memory_assumption
+          --output_extra_info=$default_full_settings.output_extra_info
+        #end if
+
+        ## Output files
+        --kmer_freq=$kmer_freq
+        --edge=$edge ## This is a gzipped binary file
+        --preArc=$preArc
+        --vertex=$vertex
+        --pregraph_basic=$pregraph_basic
+        --soapconfig=$soapconfig
+
+    </command>
+    <inputs>
+        <conditional name="config_source">
+            <param name="config_source_select" type="select" label="Select a config file from history or create a new one?">
+                <option value="history">Use one from history</option>
+                <option value="create">Create new config file</option>
+            </param>
+            <when value="history">
+                <param name="own_file" type="data" metadata_name="dbkey" label="Select config file from history" />
+            </when>
+            <when value="create">
+                <param name="max_read_length"
+                       type="integer"
+                       format="input"
+                       label="Maximum read length"
+                       value="90"/>
+                <repeat name="libraries" title="libraries" min="1">
+                    <!-- [LIB] -->
+                    <param name="avg_ins"
+                           type="integer"
+                           label="Average insert size"
+                           value="200"/>
+                    <param name="reverse_seq"
+                           type="select"
+                           label="Reverse sequence?"
+                           value="0">
+                        <option value="0">forward-reverse</option>
+                        <option value="1">reverse-forward</option>
+                    </param>
+                    <param name="asm_flags"
+                           type="select"
+                           label="Which operations should the reads be used for?"
+                           value="3">
+                        <option value="3">For contig and scaffold assembly</option>
+                        <option value="1">For only contig assembly</option>
+                        <option value="2">For only scaffold assembly</option>
+                    </param>
+                    <param name="rd_len_cutoff"
+                           optional="true"
+                           type="integer"
+                           label="Length of base pairs to use from reads"
+                           value=""/>
+                    <param name="rank"
+                           type="integer"
+                           label="Which order are the reads used while scaffolding"
+                           value="1"/>
+                    <param name="pair_num_cutoff"
+                           optional="true"
+                           type="integer"
+                           label="Pair number cutoff for a reliable connection"
+                           value=""/>
+                    <param name="map_len"
+                           optional="true"
+                           type="integer"
+                           label="Length of contig that has to be aligned for a reliable read location"
+                           value=""/>
+
+                    <repeat name="files" title="files" min="1">
+                        <!-- Actual sequence data - can be single or paired reads -->
+                        <conditional name="data_type">
+                            <param name="single_paired"
+                                   type="select"
+                                   label="What type of data are you using?">
+                                <option value="paired">Paired</option>
+                                <option value="single">Single</option>
+                            </param>
+                            <when value="paired">
+                                <conditional name="data_format">
+                                    <param name="fastq_fasta"
+                                           type="select"
+                                           label="What is the format of your sequence data?">
+                                        <option value="fastq">FASTQ</option>
+                                        <option value="fastq_gzipped">FASTQ_GZIPPED</option>
+                                        <option value="fasta">FASTA</option>
+                                        <option value="fasta_gzipped">FASTA_GZIPPED</option>
+                                        <option value="bam">BAM</option>
+                                    </param>
+                                    <when value="fastq">
+                                        <param name="input1"
+                                               type="data"
+                                               format="input"
+                                               label="Forward FASTQ file">
+                                        </param>
+                                        <param name="input2"
+                                               type="data"
+                                               format="input"
+                                               label="Reverse FASTQ file">
+                                        </param>
+                                    </when>
+                                    <when value="fastq_gzipped">
+                                        <param name="input1"
+                                               type="data"
+                                               format="input"
+                                               label="Forward FASTQ Gzipped file">
+                                        </param>
+                                        <param name="input2"
+                                               type="data"
+                                               format="input"
+                                               label="Reverse FASTQ Gzipped file">
+                                        </param>
+                                    </when>
+                                    <when value="fasta">
+                                        <param name="input1"
+                                               type="data"
+                                               format="input"
+                                               label="Forward FASTA file">
+                                        </param>
+                                        <param name="input2"
+                                               type="data"
+                                               format="input"
+                                               label="Reverse FASTA file">
+                                        </param>
+                                    </when>
+                                    <when value="fasta_gzipped">
+                                        <param name="input1"
+                                               type="data"
+                                               format="input"
+                                               label="Forward FASTA Gzipped file">
+                                        </param>
+                                        <param name="input2"
+                                               type="data"
+                                               format="input"
+                                               label="Reverse FASTA Gzipped file">
+                                        </param>
+                                    </when>
+                                    <when value="bam">
+                                        <param name="input1"
+                                               type="data"
+                                               format="input"
+                                               label="Forward BAM file">
+                                        </param>
+                                        <param name="input2"
+                                               type="data"
+                                               format="input"
+                                               label="Reverse BAM file">
+                                        </param>
+                                    </when>
+                                </conditional>
+                            </when>
+                            <when value="single">
+                                <conditional name="data_format">
+                                    <param name="fastq_fasta"
+                                           type="select"
+                                           label="What type of data are you using?">
+                                        <option value="fastq">FASTQ</option>
+                                        <option value="fastq_gzipped">FASTQ_GZIPPED</option>
+                                        <option value="fasta">FASTA</option>
+                                        <option value="fasta_gzipped">FASTA_GZIPPED</option>
+                                        <option value="bam">BAM</option>
+                                    </param>
+                                    <when value="fastq">
+                                        <param name="input1"
+                                               type="data"
+                                               format="input"
+                                               label="Forward FASTQ file">
+                                        </param>
+                                    </when>
+                                    <when value="fastq_gzipped">
+                                        <param name="input1"
+                                               type="data"
+                                               format="input"
+                                               label="Forward FASTQ Gzipped file">
+                                        </param>
+                                    </when>
+                                    <when value="fasta">
+                                        <param name="input1"
+                                               type="data"
+                                               format="input"
+                                               label="Forward FASTA file">
+                                        </param>
+                                    </when>
+                                    <when value="fasta_gzipped">
+                                        <param name="input1"
+                                               type="data"
+                                               format="input"
+                                               label="Forward FASTA Gzipped file">
+                                        </param>
+                                    </when>
+                                    <when value="bam">
+                                        <param name="input1"
+                                               type="data"
+                                               format="input"
+                                               label="Forward BAM file">
+                                        </param>
+                                    </when>
+                                </conditional>
+                            </when>
+                        </conditional>
+                    </repeat>
+                </repeat>
+            </when>
+        </conditional>
+
+        <!-- Mandatory parameters -->
+        <param name="kmer_size"
+               type="integer"
+               value="23"
+               label="k-value in kmer"
+               min="13"
+               max="127"/>
+        <!-- Commented out to keep control of thread number -->
+        <!--<param name="ncpu"-->
+        <!--type="integer"-->
+        <!--value="2"-->
+        <!--label="Number of CPUs"/>-->
+        <param name="kmer_freq_cutoff"
+               type="integer"
+               value="0"
+               label="Delete kmers with frequency no larger than?"/>
+
+        <conditional name="default_full_settings">
+            <param name="settings_type"
+                   type="select"
+                   label="SOAPdenovo2 pregraph sparse settings to use"
+                   help="Default settings is suitable for most mapping needs. If you want full control, use Full parameter list">
+                <option value="default">Default</option>
+                <option value="full">Full parameter list</option>
+            </param>
+            <when value="default"/>
+            <when value="full">
+                <param name="init_memory_assumption"
+                       type="integer"
+                       label="Initialize memory assumption to avoid further reallocation, unit GB"
+                       value="0"/>
+                <param name="output_extra_info"
+                       type="select"
+                       value="NO"
+                       label="Provide extra information for resolving repeats in contig step?">
+                    <option value="NO">No</option>
+                    <option value="YES">Yes</option>
+                </param>
+            </when>
+        </conditional>
+    </inputs>
+    <configfiles>
+        <configfile name="config_file">
+#if str($config_source.config_source_select) == 'create':
+max_rd_len=$config_source.max_read_length
+  #for $i in $config_source.libraries
+[LIB]
+    ## Average insert size
+avg_ins=$i.avg_ins
+    ## Reverse sequence?
+reverse_seq=$i.reverse_seq
+    ## Read operations
+asm_flags=$i.asm_flags
+    ## Use only first 100 bps of each read
+    #if str($i.rd_len_cutoff) != "":
+rd_len_cutoff=$i.rd_len_cutoff
+    #end if
+    ## Rank
+rank=$i.rank
+    #if str($i.pair_num_cutoff) != "":
+      ## The cutoff of a pair number for a reliable connection (at least 3 for short insert size)
+pair_num_cutoff=$i.pair_num_cutoff
+    #end if
+    ## Minimum aligned length to contigs for a reliable read location (at least 32 for short insert size)
+    #if str($i.map_len) != "":
+map_len=$i.map_len
+    #end if
+    #for $x in $i.files
+      ## Check if using single or paired reads
+      ##type_of_data=$x.data_type.single_paired
+      #if $x.data_type.single_paired == "single"
+        ##format_of_data=$x.data_type.data_format.fastq_fasta
+        #if $x.data_type.data_format.fastq_fasta == "fastq"
+q=$x.data_type.data_format.input1
+        #else if $x.data_type.data_format.fastq_fasta == "fastq_gzipped"
+q=${x.data_type.data_format.input1}.fq.gz
+        #else if $x.data_type.data_format.fastq_fasta == "fasta"
+f=$x.data_type.data_format.input1
+        #else if $x.data_type.data_format.fastq_fasta == "fasta_gzipped"
+f=${x.data_type.data_format.input1}.fa.gz
+        #else
+b=$x.data_type.data_format.input1
+        #end if
+      #else
+        ##format_of_data=$i.data_type.data_format.fastq_fasta
+        #if $x.data_type.data_format.fastq_fasta == "fastq"
+q1=$x.data_type.data_format.input1
+q2=$x.data_type.data_format.input2
+        #else if $x.data_type.data_format.fastq_fasta == "fastq_gzipped"
+q1=${x.data_type.data_format.input1}.fq.gz
+q2=${x.data_type.data_format.input2}.fq.gz
+        #else if $x.data_type.data_format.fastq_fasta == "fasta"
+f1=$x.data_type.data_format.input1
+f2=$x.data_type.data_format.input2
+        #else if $x.data_type.data_format.fastq_fasta == "fasta_gzipped"
+f1=${x.data_type.data_format.input1}.fa.gz
+f2=${x.data_type.data_format.input2}.fa.gz
+        #else
+b1=$x.data_type.data_format.input1
+b2=$x.data_type.data_format.input2
+        #end if
+      #end if
+    #end for
+  #end for
+#end if
+        </configfile>
+    </configfiles>
+    <outputs>
+        <data name="kmer_freq"
+              type="data"
+              format="txt"
+              label="pregraph.out.kmerfreq">
+        </data>
+        <data name="edge"
+              type="data"
+              format="gz"
+              label="pregraph.out.edge.gz">
+        </data>
+        <data name="preArc"
+              type="data"
+              format="txt"
+              label="pregraph.out.preArc">
+        </data>
+        <data name="vertex"
+              type="data"
+              format="txt"
+              label="pregraph.out.vertex">
+        </data>
+        <data name="pregraph_basic"
+              type="data"
+              format="txt"
+              label="pregraph.out.preGraphBasic">
+        </data>
+        <data name="soapconfig"
+              type="data"
+              format="txt"
+              label="soap.config">
+        </data>
+    </outputs>
+    <tests>
+        <test>
+            <param name="config_source_select" value="history"/>
+            <param name="own_file" value="bgisoap/soapdenovo2/soap.config"/>
+
+            <param name="kmer_size" value="55"/>
+            <param name="kmer_freq_cutoff" value="0"/>
+
+            <param name="settings_type" value="default"/>
+
+            <output name="preArc">
+                <assert_contents>
+                    <has_line line="VERTEX 18 K 55" />
+                </assert_contents>
+            </output>
+            <output name="soapconfig">
+                <assert_contents>
+                    <has_line line="max_rd_len=90" />
+                </assert_contents>
+            </output>
+
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+SOAPdenovo2 is a short-read assembly method for building de novo draft
+assemblies of human-sized genomes. It is specially designed to assemble short
+reads from the Illumina Genome Analyzer (GA).
+
+This Galaxy tool is a wrapping of the pregraph step in SOAPdenovo2. It is
+responsible for loading raw read data into memory and constructing the Bruijn
+graph structure which is used to represent the overlap between reads.
+
+-----
+
+**Configuration of SOAPdenovo2**
+
+For large genome projects involving deep sequencing, data is usually organized
+as a series of read sequence files generated from multiple libraries. Since
+the pregraph step is the start of the SOAPdenovo2 pipeline, it requires a
+configuration file to inform the SOAPdenovo2 assembler where to find these
+files and about other relevant information required for the de novo assembly
+process. This configuration file is automatically generated for SOAPdenovo2 by
+setting parameters on this Galaxy tool page so the information below is provided
+for reference or if you would like to write the configuration file by hand.
+
+The actual configuration file begins with a section for global information.
+Currently, only the maximum read length parameter, max_rd_len, is required in
+the global information section. Any reads longer than max_rd_len will be cut to
+this length.
+
+Information about the sequencing data is then organized in the corresponding
+library sections. Each library section starts with a [LIB] tag and includes the
+following parameters::
+
+  avg_ins           Indicates the average insert size of this library or the
+                    peak value position in the insert size distribution.
+
+  reverse_seq       A value which tells the assembler if the read  sequences
+                    need to be complementarily reversed. Illumima GA produces
+                    two types of paired-end libraries: a) forward-reverse,
+                    generated from fragmented DNA ends with a typical insert
+                    size less than 500 bp; b) forward-forward, generated  from
+                    circularizing libraries with typical insert size greater
+                    than 2 Kb. The reverse_seq parameter should be set to
+                    indicate this: 0, forward-reverse; 1, forward-forward.
+
+  asm_flags         Indicates which part(s) of the reads are used. A value of 1
+                    for only contig assembly, 2 for only scaffold assembly, 3
+                    for both contig and scaffold assembly, and 4 for only gap
+                    closure.
+
+  rd_len_cutof      The assembler will cut reads from the current library to
+                    this length.
+
+  rank              Sets an integer value to decide the order for reads to be
+                    used for scaffold assembly. Libraries with the same rank
+                    are used at the same time during scaffold assembly.
+
+  pair_num_cutoff   The cutoff value for pair number for a reliable connection
+                    between two contigs or pre-scaffolds. The minimum number for
+                    paired-end reads and mate-pair reads is 3 and 5,
+                    respectively.
+
+  map_len           This parameter is used in the "map" step and is the minimum
+                    alignment length between a read and a contig required for a
+                    reliable read location. The minimum length for paired-end
+                    reads and mate-pair reads is 32 and 35, respectively.
+
+The assembler accepts read files in FASTA, FASTQ and BAM formats.
+
+Mate-pair relationship can be indicated in two ways: two sequence files with
+reads in the same order belonging to a pair, or two adjacent reads in a single
+file (FASTA only) belonging to a pair. If a read in a BAM file fails platform
+and vendor quality checks, e.g. the flag field 0x0200 is set, itself and it's
+paired read will be ignored.
+
+Single end files are indicated by "f=/path/filename" or "q=/path/filename" for
+fasta or fastq formats separately. Paired reads in two fasta sequence files are
+indicated by "f1=" and "f2=", whilst paired reads in two fastq sequence files
+are indicated by "q1=" and "q2=". Paired reads in a single fasta sequence file
+is indicated by a "p=" item. Reads in BAM sequence files is indicated by "b=".
+
+All of the above items in each library section are optional since the assembler
+assigns default values for most of them.
+
+-----
+
+**Output files from Pregraph**::
+
+  kmerFreq          Each row shows the number of Kmers with a frequency equals
+                    the row number. Note that those peaks of frequencies which
+                    are the integral multiple of 63 are due to the data
+                    structure.
+
+  edge              Each record gives the information about an edge in the
+                    pre-graph: length, Kmers on both ends, average kmer
+                    coverage, whether it's reverse-complementarily identical and
+                    the sequence.
+
+  markOnEdge        A file for using reads to solve small repeats.
+
+  path              A file for using reads to solve small repeats.
+
+  preArc            Connections between edges established by read paths
+
+  vertex            Kmers at the ends of edges.
+
+  preGraphBasic     Basic information about the pre-graph: number of vertex,
+                    K value, number of edges, maximum read length, etc.
+
+  config file       Contains information required by the SOAPdenovo2 process.
+
+-----
+
+**Authors**
+
+Ruibang Luo and Zhenyu Li, 2012-7-10
+
+**More information**
+
+For test data and more detailed information, click here_.
+
+.. _here: http://soap.genomics.org.cn/soapdenovo.html
+    </help>
+</tool>
