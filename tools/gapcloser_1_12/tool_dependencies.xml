@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="gapcloser" version="1.12">
+        <repository  changeset_revision="" name="package_gapcloser_1_12" owner="peterli" toolshed="" />
+    </package>
+</tool_dependency>
