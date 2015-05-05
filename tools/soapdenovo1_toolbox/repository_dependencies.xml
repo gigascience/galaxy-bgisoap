@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<repositories description="This is a meta-package that will install several other tools.">
+    <repository changeset_revision="" name="soapfilter" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="kmerfreq1" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="corrector1" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="soapdenovo1" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="gapcloser_1_10" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="extract_acgt" owner="peterli"
+                toolshed=""/>
+</repositories>
