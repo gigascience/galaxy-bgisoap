@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="soapfilter" version="2.0">
+        <repository  changeset_revision="" name="package_soapfilter_2_0" owner="peterli" toolshed="" />
+    </package>
+</tool_dependency>
