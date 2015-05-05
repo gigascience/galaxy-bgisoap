@@ -1,0 +1,265 @@
+<tool id="kmerfreq_ar_2_wrapper" name="KmerFreq AR" version="0.1">
+    <description>- a kmer frequency counter</description>
+    <requirements>
+        <requirement type="package" version="2.0">soapec</requirement>
+    </requirements>
+    <command interpreter="python">
+        kmerfreq_ar_2_wrapper.py
+
+        --format_of_data=$data_format.fastq_fasta
+        #if $data_format.fastq_fasta == "fastq"
+          #for $i in $data_format.libraries
+            --paired_fastq_input1=$i.input1
+            --paired_fastq_input2=$i.input2
+          #end for
+        #else
+          #for $i in $data_format.libraries
+            --paired_fasta_input1=$i.input1
+            --paired_fasta_input2=$i.input2
+          #end for
+        #end if
+
+        ## Check if performing consecutive or space processing
+        --space_consecutive_settings_type=$space_consecutive_settings.space_consecutive_settings_type
+        #if $space_consecutive_settings.space_consecutive_settings_type == "consecutive"
+          --kmer_size=$space_consecutive_settings.kmer_size
+          --min_precision_kmer_rate=$space_consecutive_settings.min_precision_kmer_rate
+          ##Commented out to keep under local control
+          ##--thread_num=$space_consecutive_settings.thread_num
+
+          --ascii_shift=$space_consecutive_settings.ascii_shift
+          --output_depth=$space_consecutive_settings.output_depth
+          --use_num_bases=$space_consecutive_settings.use_num_bases
+        #else
+          --kmer_size=$space_consecutive_settings.kmer_size
+          --kmer_space_seed_size=$space_consecutive_settings.kmer_space_seed_size
+          --min_precision_kmer_rate=$space_consecutive_settings.min_precision_kmer_rate
+          ##Commented out to keep under local control
+          ##--thread_num=$space_consecutive_settings.thread_num
+
+          --ascii_shift=$space_consecutive_settings.ascii_shift
+          --output_depth=$space_consecutive_settings.output_depth
+          --use_num_bases=$space_consecutive_settings.use_num_bases
+        #end if
+
+        ## Output files
+        --filelist=$filelist
+        #if $space_consecutive_settings.space_consecutive_settings_type == "consecutive"
+          --stat=$stat
+          --cz_len=$cz_len
+          --cz=$cz
+          --genome_estimate=$genome_estimate
+        #else
+          --stat=$space_stat
+          --cz_len=$space_cz_len
+          --cz=$space_cz
+          --genome_estimate=$space_genome_estimate
+        #end if
+
+    </command>
+    <inputs>
+        <conditional name="data_format">
+            <param name="fastq_fasta"
+                   type="select"
+                   label="What type of data are you using?">
+                <option value="fastq">FASTQ</option>
+                <option value="fasta">FASTA</option>
+            </param>
+            <when value="fastq">
+                <repeat name="libraries" title="libraries" min="1">
+                    <param name="input1"
+                           type="data"
+                           format="input"
+                           label="Forward FASTQ file">
+                    </param>
+                    <param name="input2"
+                           type="data"
+                           format="input"
+                           label="Reverse FASTQ file">
+                    </param>
+                </repeat>
+            </when>
+            <when value="fasta">
+                <repeat name="libraries" title="libraries" min="1">
+                    <param name="input1"
+                           type="data"
+                           format="input"
+                           label="Forward FASTA file">
+                    </param>
+                    <param name="input2"
+                           type="data"
+                           format="input"
+                           label="Reverse FASTA file">
+                    </param>
+                </repeat>
+            </when>
+        </conditional>
+        <conditional name="space_consecutive_settings">
+            <param name="space_consecutive_settings_type" type="select" label="Kmerfreq AR analysis to perform">
+                <option value="consecutive">Consecutive</option>
+                <option value="space">Space</option>
+            </param>
+            <when value="consecutive">
+                <param name="kmer_size"
+                       type="integer"
+                       value="13"
+                       label="Kmer size"
+                       help="Kmer size should be set between 13 and 27"/>
+                <!-- Commented out to keep under local control -->
+                <!--<param name="thread_num"-->
+                       <!--type="integer"-->
+                       <!--value="1"-->
+                       <!--label="Number of threads to use"-->
+                       <!--help="For increasing processing speed of KmerFreq. This param should be less than the number of available CPU cores"/>-->
+                <param name="min_precision_kmer_rate"
+                       type="integer"
+                       value="-1"
+                       label="Minimum precision kmer rate"
+                       help="KmerFreq AR calculates the precision of kmer based on the quality score. Set between 0 and 0.99, or -1 for unrestrained"/>
+                <param name="ascii_shift"
+                       type="select"
+                       value="33"
+                       label="ASCII shift of the quality value"
+                       help="Usually 64 or 33 for Illumina data">
+                    <option value="64">64</option>
+                    <option value="33">33</option>
+                </param>
+                <param name="output_depth"
+                       type="select"
+                       value="1"
+                       label="Output kmers depth file?">
+                    <option value="1">YES</option>
+                    <option value="0">NO</option>
+                </param>
+                <param name="use_num_bases"
+                       type="integer"
+                       optional="true"
+                       value=""
+                       label="Total bases number used to get kmers"
+                       help="When sequencing depth is too much, you can set this option, about 30X data bases is preferred"/>
+            </when>
+            <when value="space">
+                <param name="kmer_size"
+                       type="integer"
+                       value="13"
+                       label="Kmer size"
+                       help="Kmer size should be set between 13 and 27"/>
+                <param name="kmer_space_seed_size"
+                       type="integer"
+                       value="1"
+                       label="Size of space-seed in kmer"
+                       help="For space-kmer processing, this option should be set to an even number when kmer size is an odd number for reverse and complement kmer. When kmer size is an even number, the space-kmer format will be like this (for k=10, s=5): 'ATTCG-----GTACG'. When kmer size is an odd number, the space-kmer format will be like this (for k=11, s=4): "/>
+                <!-- Commented out to keep under local control -->
+                <!--<param name="thread_num"-->
+                       <!--type="integer"-->
+                       <!--value="1"-->
+                       <!--label="Number of threads to use"-->
+                       <!--help="For increasing processing speed of KmerFreq. This param should be less than the number of available CPU cores"/>-->
+                <param name="min_precision_kmer_rate"
+                       type="integer"
+                       value="-1"
+                       label="Minimum precision kmer rate"
+                       help="KmerFreq AR calculates the precision of kmer based on the quality score. Set between 0 and 0.99, or -1 for unrestrained"/>
+                <param name="ascii_shift"
+                       type="select"
+                       value="33"
+                       label="ASCII shift of the quality value"
+                       help="Usually 64 or 33 for Illumina data">
+                    <option value="64">64</option>
+                    <option value="33">33</option>
+                </param>
+                <param name="output_depth"
+                       type="select"
+                       value="1"
+                       label="Output kmers depth file?">
+                    <option value="1">YES</option>
+                    <option value="0">NO</option>
+                </param>
+                <param name="use_num_bases"
+                       type="integer"
+                       optional="true"
+                       value=""
+                       label="Total bases number used to get kmers"
+                       help="When sequencing depth is too much, you can set this option, about 30X data bases is preferred"/>
+            </when>
+        </conditional>
+    </inputs>
+    <outputs>
+        <data name="filelist" format="Tabular" label="kmeqfreq.infiles"/>
+        <data name="stat" format="Tabular" label="kmerfreq.stats">
+            <filter>space_consecutive_settings['space_consecutive_settings_type'] == "consecutive"</filter>
+        </data>
+        <data name="cz_len" format="Tabular" label="kmerfreq.cz.len">
+            <filter>space_consecutive_settings['space_consecutive_settings_type'] == "consecutive"</filter>
+        </data>
+        <data name="cz" format="Tabular" label="kmerfreq.cz">
+            <filter>space_consecutive_settings['space_consecutive_settings_type'] == "consecutive"</filter>
+        </data>
+        <data name="genome_estimate" format="Tabular" label="genome.estimate">
+            <filter>space_consecutive_settings['space_consecutive_settings_type'] == "consecutive"</filter>
+        </data>
+
+        <data name="space_stat" format="Tabular" label="kmerfreq.space.stats">
+            <filter>space_consecutive_settings['space_consecutive_settings_type'] == "space"</filter>
+        </data>
+        <data name="space_cz_len" format="Tabular" label="kmerfreq.space.cz.len">
+            <filter>space_consecutive_settings['space_consecutive_settings_type'] == "space"</filter>
+        </data>
+        <data name="space_cz" format="Tabular" label="kmerfreq.space.cz">
+            <filter>space_consecutive_settings['space_consecutive_settings_type'] == "space"</filter>
+        </data>
+        <data name="space_genome_estimate" format="Tabular" label="space.genome.estimate">
+            <filter>space_consecutive_settings['space_consecutive_settings_type'] == "space"</filter>
+        </data>
+    </outputs>
+    <tests>
+        <test>
+            <!--
+                GapCloser –b config_file –a scaffold_file –o output_file
+            -->
+            <param name="refGenomeSource" value="indexed"/>
+            <param name="indices" value="phiX"/>
+            <param name="sPaired" value="single"/>
+            <param name="input1" value="bwa_wrapper_in1.fastqsanger" ftype="fastqsanger"/>
+            <param name="source_select" value="pre_set"/>
+            <param name="suppressHeader" value="true"/>
+            <output name="output" file="bwa_wrapper_out1.sam" ftype="sam" sort="True"/>
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+KmerFreq is one of two programs which is used to correct sequencing errors based
+on the kmer frequency spectrum (KFS). Since it assumes that most low frequency
+Kmers  have been generated by sequencing errors, the key to its error correction
+functionality is to distinguish the rate of low and high frequency Kmers.
+The use of larger Kmer sizes provides better results but conversely requires
+more computing resources. In order to produce a more accurate result, the
+trimmed length and deletion ratio is balanced with the accuracy level. A
+practical Kmer size should be chosen based on the genome characteristic.
+
+Note that 30X data is preferred for calculation of the Kmer frequency spectrum.
+
+When kmer size is less than 17 bp, this KmerFreq_AR tool and Corrector_AR should
+be used because it will be faster than using the HA versions. Memory usage will
+also be less than 16 GB (15mer, 1G; 16mer, 4G; 17mer, 16G) for KFS construction.
+Also, KmerFreq_AR supports space-kmer in KFS construction and Corrector_AR
+supports Duo-kmer (consecutive and space kmer) in the correction process.
+
+When kmer sizes larger than 17bp are to be processed, the HA versions of
+KmerFreq and Corrector should be used since less memory is required for KFS
+construction.
+
+-----
+
+**Outputs**
+
+Two output files are generated by KmerFreq:
+
+1. freq.stat
+2. freq.cz
+3. freq.cz.len
+    </help>
+</tool>
+
+
