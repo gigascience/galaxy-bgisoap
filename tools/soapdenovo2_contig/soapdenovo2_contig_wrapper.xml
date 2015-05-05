@@ -1,0 +1,207 @@
+<tool id="soapdenovo2_contig_wrapper" name="contig" version="0.1" force_history_refresh="True">
+    <description>identification from overlapping sequence reads</description>
+    <requirements>
+        <requirement type="package" version="2.04">soapdenovo</requirement>
+    </requirements>
+    <command interpreter="python">
+        soapdenovo2_contig_wrapper.py
+
+        ## Inputs
+        --pre_graph_basic=$pre_graph_basic
+        --vertex=$vertex
+        --pre_arc=$pre_arc
+        --edge_gz=$edge_gz
+
+        ## Outputs
+        --contig=$contig
+        --arc=$arc
+        --updated_edge=$updated_edge
+        --contig_index=$contig_index
+
+        ## Check if using default or custom parameters
+        --default_full_settings_type=$default_full_settings.settings_type
+        #if $default_full_settings.settings_type == "full"
+            --resolve_repeats=$default_full_settings.resolve_repeats
+            --multi_kmer_setting=$default_full_settings.multi_kmer.multi_kmer_setting
+            --merge_level=$default_full_settings.merge_level
+            --edge_cov_cutoff=$default_full_settings.edge_cov_cutoff
+            --weight=$default_full_settings.weight
+            #if $default_full_settings.multi_kmer.multi_kmer_setting == "YES"
+            	--max_k=$default_full_settings.multi_kmer.max_k
+            	--reads_info_file=$default_full_settings.multi_kmer.reads_info_file
+                ##Commented out to keep control
+            	##--ncpu=$default_full_settings.multi_kmer.ncpu
+            	--merge_clean_bubble=$default_full_settings.multi_kmer.merge_clean_bubble
+            #end if
+        #end if
+    </command>
+    <inputs>
+        <param name="pre_graph_basic"
+               type="data"
+               format="input"
+               label="preGraphBasic output from pregraph step"/>
+        <param name="vertex"
+               type="data"
+               format="input"
+               label="vertex output from pregraph step"/>
+        <param name="pre_arc"
+               type="data"
+               format="input"
+               label="preArc output from pregraph step"/>
+        <param name="edge_gz"
+               type="data"
+               format="input"
+               label="edge.gz output from pregraph step"/>
+        <!--Other parameters -->
+        <conditional name="default_full_settings">
+        <param name="settings_type"
+               type="select"
+               label="SOAPdenovo2 contig settings to use"
+               help="Default settings is suitable for most mapping needs. If you want full control, use Full parameter list">
+            <option value="default">Default</option>
+            <option value="full">Full parameter list</option>
+        </param>
+        <when value="default"/>
+        <when value="full">
+            <param name="resolve_repeats"
+                   type="select"
+                   value="NO"
+                   label="Resolve repeats by reads">
+                <option value="NO">No</option>
+                <option value="YES">Yes</option>
+            </param>
+            <param name="merge_level"
+                   type="select"
+                   value="1"
+                   label="Strength of merging similar sequences during contiging">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </param>
+            <param name="edge_cov_cutoff"
+                   type="integer"
+                   value="1"
+                   label="Delete edges with coverage no larger than?"/>
+            <param name="weight"
+                   type="integer"
+                   value="0"
+                   label="Weight to filter arc when linearizing two edges"/>
+            <conditional name="multi_kmer">
+            <param name="multi_kmer_setting" 
+            		type="select"
+            		value="NO"
+            		label=""
+            		help="">
+            	<option value="NO">No</option>
+            	<option value="YES">Yes</option>
+            </param>
+            <when value="NO"/>
+            <when value="YES">
+            	<param name="max_k"
+                	   type="integer"
+                	   value="13"
+                	   label="Max k when using multi-kmer"/>
+            	<param name="reads_info_file"
+                	   type="data"
+                	   format="input"
+               	       label="Information on solexa reads required for when multi-kmer is used"/>
+                <!-- Commented out to keep thread number under control -->
+            	<!--<param name="ncpu"-->
+                	   <!--type="integer"-->
+                	   <!--value="8"-->
+                	   <!--label="Number of CPUs to use"/>-->
+            	<param name="merge_clean_bubble"
+                	   type="select"
+                	   optional="true"
+                	   label="Merge clean bubble before iterate">
+                	<option value="NO">No</option>
+                	<option value="YES">Yes</option>
+            	</param>
+            </when>
+            </conditional>
+        </when>
+        </conditional>
+    </inputs>
+    <outputs>
+        <data name="contig"
+              format="txt"
+              label="contig.out.contig">
+        </data>
+        <data name="arc"
+              format="txt"
+              label="contig.out.arc">
+        </data>
+        <data name="updated_edge"
+              format="txt"
+              label="contig.out.updatedEdge">
+        </data>
+        <data name="contig_index"
+              format="txt"
+              label="contig.out.contigIndex">
+        </data>
+    </outputs>
+    <tests>
+        <test>
+            <param name="settings_type" value="default"/>
+
+            <param name="pre_graph_basic"
+                   value="bgisoap/soapdenovo2/pregraphbasic.txt"/>
+            <param name="vertex"
+                   value="bgisoap/soapdenovo2/vertex.txt"/>
+            <param name="pre_arc"
+                   value="bgisoap/soapdenovo2/prearc.txt"/>
+            <param name="edge_gz"
+                   value="bgisoap/soapdenovo2/edge.gz"/>
+
+            <output name="contig_index">
+                <assert_contents>
+                    <has_line line="Edge_num 4 2" />
+                </assert_contents>
+            </output>
+
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+SOAPdenovo2 is a short-read assembly method for building de novo draft
+assemblies of human-sized genomes. It is specially designed to assemble short
+reads from the Illumina Genome Analyzer (GA).
+
+This Galaxy tool is a wrapping of SOAPdenovo2's contig step in SOAPdenovo2. It
+analyses the outputs created by the pregraph step (out.preGraphBasic,
+out.out.vertex and out.preArc) to identify contigs that are made up of
+overlapping sequence reads.
+
+-----
+
+**Output files from Contig**::
+
+  contig            Contains information about the resulting contigs including
+                    edge index, length and kmer coverage. Either the contig or
+                    its  reverse complementry counterpart is included. Each
+                    reverse complementry contig index is indicated in the
+                    ContigIndex file.
+
+  arc               Arcs coming out of each edge and their corresponding
+                    coverage by reads.
+
+  updated.edge      Information for each edge in the graph: length, kmers at
+                    both ends, index difference between the reverse-complementry
+                    edge and this one.
+
+  ContigIndex       Each record gives information about each contig in the
+                    contig file including edge index, length, the index
+                    difference between its reverse-complementary counterpart and
+                    itself.
+
+-----
+
+**More information**
+
+For test data and more detailed information, click here_.
+
+.. _here: http://soap.genomics.org.cn/soapdenovo.html
+    </help>
+</tool>

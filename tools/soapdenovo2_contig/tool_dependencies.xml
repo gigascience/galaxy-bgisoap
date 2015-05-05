@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="soapdenovo" version="2.04">
+        <repository  changeset_revision="" name="package_soapdenovo_2_04" owner="peterli" toolshed="" />
+    </package>
+</tool_dependency>
