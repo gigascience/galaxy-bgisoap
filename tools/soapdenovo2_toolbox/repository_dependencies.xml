@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<repositories description="This is a meta-package that will install several other tools.">
+    <repository changeset_revision="" name="soapfilter" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="kmerfreq_ha_2" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="kmerfreq_ar_2" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="corrector_ha_2" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="corrector_ar_2" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="soapdenovo2" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="soapdenovo2_pregraph" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="soapdenovo2_pregraph_sparse" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="soapdenovo2_contig" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="soapdenovo2_map" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="soapdenovo2_map_scaff" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="gapcloser_1_12" owner="peterli"
+                toolshed=""/>
+    <repository changeset_revision="" name="extract_acgt" owner="peterli"
+                toolshed=""/>
+</repositories>
