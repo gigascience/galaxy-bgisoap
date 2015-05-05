@@ -29,7 +29,7 @@
             </actions_group>
         </install>
         <readme>
-Downloads the precompiled 64bit Linux SOAPdenovo-2.04 binaries.
+Downloads the precompiled 64bit Linux SOAPdenovo-1.0 binaries.
         </readme>
     </package>
 </tool_dependency>
