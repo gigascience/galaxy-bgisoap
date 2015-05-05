@@ -12,6 +12,8 @@
                     </action>
                     <action type="chmod"><file mode="755">$INSTALL_DIR/bin/KmerFreq_AR_v2.0</file></action>
                     <action type="chmod"><file mode="755">$INSTALL_DIR/bin/Corrector_AR_v2.0</file></action>
+                    <action type="chmod"><file mode="755">$INSTALL_DIR/bin/KmerFreq_HA_v2.0</file></action>
+                    <action type="chmod"><file mode="755">$INSTALL_DIR/bin/Corrector_HA_v2.0</file></action>
                 </actions>
                 <!-- This actions tag is only processed if none of the above tags resulted in a successful installation -->
                 <actions>
