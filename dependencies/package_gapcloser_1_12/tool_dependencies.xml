@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="gapcloser" version="1.12">
+        <install version="1.0">
+            <actions_group>
+                <!-- Download executable for GapCloser compatible with 64-bit Linux -->
+                <actions os="linux" architecture="x86_64">
+                    <action type="download_by_url">https://github.com/gigascience/SOAPdenovo2/archive/gigasci.zip</action>
+                    <action type="move_directory_files">
+                        <source_directory>tools/GapCloser/executables/1.12/x86_64/bin</source_directory>
+                        <destination_directory>$INSTALL_DIR/bin</destination_directory>
+                    </action>
+                    <action type="chmod"><file mode="755">$INSTALL_DIR/bin/GapCloser_v1.12</file></action>
+                </actions>
+                <!-- This actions tag is only processed if none of the above tags resulted in a successful installation -->
+                <actions>
+                    <action type="shell_command">echo "ERROR: Automated installation on your operating system and CPU architecture combination is not yet supported."</action>
+                    <action type="shell_command">echo "Your machine details (the output from 'uname' and 'arch'):"</action>
+                    <action type="shell_command">uname</action>
+                    <action type="shell_command">arch</action>
+                    <action type="shell_command">echo "Please report this via https://github.com/gigascience/SOAPdenovo2/issues"</action>
+                    <action type="shell_command">false</action>
+                    <!-- The 'false' command will return an error, so Galaxy should treat this as a failed install -->
+                </actions>
+                <!-- The $PATH environment variable is only set if one of the above <actions> tags resulted in a successful installation -->
+                <action type="set_environment">
+                    <environment_variable name="PATH" action="prepend_to">$INSTALL_DIR/bin</environment_variable>
+                </action>
+            </actions_group>
+        </install>
+        <readme>
+Downloads the precompiled 64bit Linux GapCloser-1.12 binaries.
+        </readme>
+    </package>
+</tool_dependency>
