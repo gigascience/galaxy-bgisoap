@@ -1,4 +1,4 @@
-<tool id="soap2" name="Alignment_mapping" version="2.21">
+<tool id="soap2_wrapper" name="Alignment_mapping" version="0.1">
     <description>using SOAP2</description>
     <requirements>
         <requirement type="package" version="2.21">soap</requirement>
