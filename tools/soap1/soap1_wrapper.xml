@@ -185,19 +185,20 @@
             <param name="settings_type" value="default"/>
 
             <param name="forward_set"
-                   value="bgisoap/soap/test_PE1.fa"
+                   value="test_PE1.fa"
                    ftype="fasta"/>
             <param name="reverse_set"
-                   value="bgisoap/soap/test_PE2.fa"
+                   value="test_PE2.fa"
                    ftype="fasta"/>
             <param name="ref_seq"
-                   value="bgisoap/soap/ref.fa"
+                   value="ref.fa"
                    ftype="fasta"/>
             <output name="alignment_out"
-                    file="bgisoap/soap/alignment.soap"
-                    compare="sim_size"/>
+                    file="soap1.out.alignment.part"
+                    compare="contains"/>
             <output name="unpaired_alignment_out"
-                    file="bgisoap/soap/unpaired.soap"/>
+                    file="soap1.out.unpaired.part"
+                    compare="contains"/>
         </test>
     </tests>
     <help>
