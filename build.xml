@@ -18,7 +18,6 @@
     </target>
 
     <target name="build" unless="build.found">
-        <!-- Create the build directory structure used by compile -->
         <mkdir dir="${build.dir}"/>
     </target>
 
@@ -38,6 +37,8 @@
         <copy file="${test-data.dir}/ref.fa" todir="${build.dir}/soap1/test-data"/>
         <copy file="${test-data.dir}/test_PE1.fa" todir="${build.dir}/soap1/test-data"/>
         <copy file="${test-data.dir}/test_PE2.fa" todir="${build.dir}/soap1/test-data"/>
+        <copy file="${test-data.dir}/soap1.out.alignment.part" todir="${build.dir}/soap1/test-data"/>
+        <copy file="${test-data.dir}/soap1.out.unpaired.part" todir="${build.dir}/soap1/test-data"/>
     </target>
 
     <target name="package_soap_2_21" depends="build">
