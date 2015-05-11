@@ -6,6 +6,7 @@
     <property file="build.properties"/>
     <property name="build.dir" location="./build"/>
     <property name="dependencies.dir" location="./dependencies"/>
+    <property name="data.managers.dir" location="./data_managers"/>
     <property name="test-data.dir" location="./test-data"/>
     <property name="tool-data.dir" location="./tool-data"/>
     <property name="tools.dir" location="./tools"/>
@@ -56,8 +57,16 @@
         <mkdir dir="${build.dir}/soap2/test-data"/>
         <copy file="${test-data.dir}/test_PE1.fa" todir="${build.dir}/soap2/test-data"/>
         <copy file="${test-data.dir}/test_PE2.fa" todir="${build.dir}/soap2/test-data"/>
-        <mkdir dir="${build.dir}/soap2/tool-data"/>
-        <copy file="${tool-data.dir}/2bwt_index.loc.sample" todir="${build.dir}/soap2/tool-data"/>
+    </target>
+
+    <target name="2bwt" depends="build">
+        <mkdir dir="${build.dir}/2bwt"/>
+        <copy todir="${build.dir}/2bwt">
+            <fileset dir="${data.managers.dir}/2bwt"/>
+        </copy>
+        <mkdir dir="${build.dir}/2bwt/tool-data"/>
+        <copy file="${tool-data.dir}/2bwt_index.loc.sample" todir="${build.dir}/2bwt/tool-data"/>
+        <copy file="${tool-data.dir}/tool_data_table_conf.xml.sample" todir="${build.dir}/2bwt/"/>
     </target>
 
     <target name="clean" description="clean up">
