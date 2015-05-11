@@ -27,6 +27,10 @@
         <copy todir="${build.dir}/package_soap_1_11">
             <fileset dir="${dependencies.dir}/package_soap_1_11"/>
         </copy>
+
+        <tar destfile="${build.dir}/package_soap_1_11.tar" basedir="${build.dir}/package_soap_1_11"/>
+        <gzip destfile="${build.dir}/package_soap_1_11.tar.gz" src="${build.dir}/package_soap_1_11.tar"/>
+        <delete file="${build.dir}/package_soap_1_11.tar"/>
     </target>
 
     <target name="soap1" depends="build">
@@ -40,6 +44,10 @@
         <copy file="${test-data.dir}/test_PE2.fa" todir="${build.dir}/soap1/test-data"/>
         <copy file="${test-data.dir}/soap1.out.alignment.part" todir="${build.dir}/soap1/test-data"/>
         <copy file="${test-data.dir}/soap1.out.unpaired.part" todir="${build.dir}/soap1/test-data"/>
+
+        <tar destfile="${build.dir}/soap1.tar" basedir="${build.dir}/soap1"/>
+        <gzip destfile="${build.dir}/soap1.tar.gz" src="${build.dir}/soap1.tar"/>
+        <delete file="${build.dir}/soap1.tar"/>
     </target>
 
     <target name="package_soap_2_21" depends="build">
@@ -47,6 +55,10 @@
         <copy todir="${build.dir}/package_soap_2_21">
             <fileset dir="${dependencies.dir}/package_soap_2_21"/>
         </copy>
+
+        <tar destfile="${build.dir}/package_soap_2_21.tar" basedir="${build.dir}/package_soap_2_21"/>
+        <gzip destfile="${build.dir}/package_soap_2_21.tar.gz" src="${build.dir}/package_soap_2_21.tar"/>
+        <delete file="${build.dir}/package_soap_2_21.tar"/>
     </target>
 
     <target name="soap2" depends="build">
@@ -59,6 +71,10 @@
         <copy file="${test-data.dir}/test_PE2.fa" todir="${build.dir}/soap2/test-data"/>
         <mkdir dir="${build.dir}/soap2/tool-data"/>
         <copy file="${tool-data.dir}/2bwt_index.loc.sample" todir="${build.dir}/soap2/tool-data/"/>
+
+        <tar destfile="${build.dir}/soap2.tar" basedir="${build.dir}/soap2"/>
+        <gzip destfile="${build.dir}/soap2.tar.gz" src="${build.dir}/soap2.tar"/>
+        <delete file="${build.dir}/soap2.tar"/>
     </target>
 
     <target name="2bwt" depends="build">
@@ -69,6 +85,10 @@
         <mkdir dir="${build.dir}/2bwt/tool-data"/>
         <copy file="${tool-data.dir}/2bwt_index.loc.sample" todir="${build.dir}/2bwt/tool-data"/>
         <copy file="${tool-data.dir}/tool_data_table_conf.xml.sample" todir="${build.dir}/2bwt/"/>
+
+        <tar destfile="${build.dir}/2bwt.tar" basedir="${build.dir}/2bwt"/>
+        <gzip destfile="${build.dir}/2bwt.tar.gz" src="${build.dir}/2bwt.tar"/>
+        <delete file="${build.dir}/2bwt.tar"/>
     </target>
 
     <target name="clean" description="clean up">
