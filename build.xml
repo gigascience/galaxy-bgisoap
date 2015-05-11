@@ -57,6 +57,8 @@
         <mkdir dir="${build.dir}/soap2/test-data"/>
         <copy file="${test-data.dir}/test_PE1.fa" todir="${build.dir}/soap2/test-data"/>
         <copy file="${test-data.dir}/test_PE2.fa" todir="${build.dir}/soap2/test-data"/>
+        <mkdir dir="${build.dir}/soap2/tool-data"/>
+        <copy file="${tool-data.dir}/2bwt_index.loc.sample" todir="${build.dir}/soap2/tool-data/"/>
     </target>
 
     <target name="2bwt" depends="build">
