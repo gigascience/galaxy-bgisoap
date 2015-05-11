@@ -16,15 +16,15 @@ provides access to a particular SOAP binary.
 ## Folder structure
 
 There is one directory for each SOAP tool which has been wrapped for use in
-Galaxy and these are contained within the tools *folder*.  The *dependencies*
+Galaxy and these are contained within the `tools` folder.  The `dependencies`
 folder contains the packages for the SOAP Galaxy Tool dependency definitions.
 
-The *data_managers* folder contains a single Galaxy Data Manager for setting up
+The `data_managers` folder contains a single Galaxy Data Manager for setting up
 index files for use with [SOAP2](http://soap.genomics.org.cn/soapaligner.html).
-In *tool-data*, you will find configuration files which are used by Galaxy to
+In `tool-data`, you will find configuration files which are used by Galaxy to
 access SOAP2's index files.
 
-The *test-data* directory contains data files which are used for functional
+The `test-data` directory contains data files which are used for functional
 tests by the Galaxy wrappers.
 
 ## Installation
