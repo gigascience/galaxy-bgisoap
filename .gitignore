@@ -1,11 +1,16 @@
+#Ignore backup files from some Unix editors,
+*.swp
+*.bak
+*~
+
 .hg*
 
 # Python bytecode
 *.pyc
+*.pyo
 
 # Misc
 *.orig
 .DS_Store
 *.rej
-*~
 .idea
