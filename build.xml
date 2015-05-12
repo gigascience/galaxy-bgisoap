@@ -129,7 +129,7 @@
         <copy todir="${build.dir}/soapdenovo2_pregraph/test-data/phiX174">
             <fileset dir="${test-data.dir}/phiX174"/>
         </copy>
-        <copy file="${test-data.dir}/preArc.part" todir="${build.dir}/soapdenovo2_pregraph/test-data"/>
+        <copy file="${test-data.dir}/preGraphBasic.part" todir="${build.dir}/soapdenovo2_pregraph/test-data"/>
 
         <tar destfile="${build.dir}/soapdenovo2_pregraph.tar" basedir="${build.dir}/soapdenovo2_pregraph"/>
         <gzip destfile="${build.dir}/soapdenovo2_pregraph.tar.gz" src="${build.dir}/soapdenovo2_pregraph.tar"/>
