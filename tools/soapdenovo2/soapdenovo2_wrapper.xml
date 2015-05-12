@@ -1,5 +1,4 @@
 <tool id="soapdenovo2_wrapper" name="SOAPdenovo2" version="0.1">
-    <description></description>
     <requirements>
         <requirement type="package" version="2.04">soapdenovo</requirement>
     </requirements>
@@ -481,18 +480,15 @@ b2=$x.data_type.data_format.input2
     <tests>
         <test>
             <param name="config_source_select" value="history"/>
-            <param name="own_file" value="bgisoap/soapdenovo2/soap.config"/>
-
+            <param name="own_file" value="phiX174/soap.config"/>
             <param name="kmer_size" value="55"/>
             <param name="kmer_freq_cutoff" value="0"/>
             <param name="resolve_repeats" value="NO"/>
             <param name="fill_gaps" value="NO"/>
-
             <param name="settings_type" value="default"/>
-
-            <output name="contig" file="bgisoap/soapdenovo2/phi_contigs.fasta" />
-            <output name="scafseq" file="bgisoap/soapdenovo2/phi_scaffolds.fasta" />
-            <output name="config" file="bgisoap/soapdenovo2/soap.config" />
+            <output name="contig"
+                    file="soapdvo2.contigs.part"
+                    compare="contains"/>
         </test>
     </tests>
     <help>
