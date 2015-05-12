@@ -373,8 +373,8 @@ b2=$x.data_type.data_format.input2
             <param name="kmer_size" value="55"/>
             <param name="kmer_freq_cutoff" value="0"/>
             <param name="settings_type" value="default"/>
-            <output name="preArc"
-                    file="preArc.part"
+            <output name="pregraph_basic"
+                    file="preGraphBasic.part"
                     compare="contains"/>
         </test>
     </tests>
