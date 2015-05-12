@@ -369,24 +369,13 @@ b2=$x.data_type.data_format.input2
     <tests>
         <test>
             <param name="config_source_select" value="history"/>
-            <param name="own_file" value="bgisoap/soapdenovo2/soap.config"/>
-
+            <param name="own_file" value="phiX174/soap.config"/>
             <param name="kmer_size" value="55"/>
             <param name="kmer_freq_cutoff" value="0"/>
-
             <param name="settings_type" value="default"/>
-
-            <output name="preArc">
-                <assert_contents>
-                    <has_line line="VERTEX 18 K 55" />
-                </assert_contents>
-            </output>
-            <output name="soapconfig">
-                <assert_contents>
-                    <has_line line="max_rd_len=90" />
-                </assert_contents>
-            </output>
-
+            <output name="preArc"
+                    file="preArc.part"
+                    compare="contains"/>
         </test>
     </tests>
     <help>
