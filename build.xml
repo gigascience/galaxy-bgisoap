@@ -91,6 +91,34 @@
         <delete file="${build.dir}/2bwt.tar"/>
     </target>
 
+    <target name="package_soapdenovo_2_04" depends="build">
+        <mkdir dir="${build.dir}/package_soapdenovo_2_04"/>
+        <copy todir="${build.dir}/package_soapdenovo_2_04">
+            <fileset dir="${dependencies.dir}/package_soapdenovo_2_04"/>
+        </copy>
+
+        <tar destfile="${build.dir}/package_soapdenovo_2_04.tar" basedir="${build.dir}/package_soapdenovo_2_04"/>
+        <gzip destfile="${build.dir}/package_soapdenovo_2_04.tar.gz" src="${build.dir}/package_soapdenovo_2_04.tar"/>
+        <delete file="${build.dir}/package_soapdenovo_2_04.tar"/>
+    </target>
+
+    <target name="soapdenovo2" depends="build">
+        <mkdir dir="${build.dir}/soapdenovo2"/>
+        <copy todir="${build.dir}/soapdenovo2">
+            <fileset dir="${tools.dir}/soapdenovo2"/>
+        </copy>
+        <mkdir dir="${build.dir}/soapdenovo2/test-data"/>
+        <mkdir dir="${build.dir}/soapdenovo2/test-data/phiX174"/>
+        <copy todir="${build.dir}/soapdenovo2/test-data/phiX174">
+            <fileset dir="${test-data.dir}/phiX174"/>
+        </copy>
+        <copy file="${test-data.dir}/soapdvo2.contigs.part" todir="${build.dir}/soapdenovo2/test-data"/>
+
+        <tar destfile="${build.dir}/soapdenovo2.tar" basedir="${build.dir}/soapdenovo2"/>
+        <gzip destfile="${build.dir}/soapdenovo2.tar.gz" src="${build.dir}/soapdenovo2.tar"/>
+        <delete file="${build.dir}/soapdenovo2.tar"/>
+    </target>
+
     <target name="clean" description="clean up">
         <!-- Delete build directory -->
         <delete dir="${build.dir}"/>
