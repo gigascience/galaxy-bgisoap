@@ -1,0 +1,2 @@
+<path_to>/phiX174/Illumina_90bp2000IS10X/90bp2000IS10X_1.fq
+<path_to>/phiX174/Illumina_90bp2000IS10X/90bp2000IS10X_2.fq
