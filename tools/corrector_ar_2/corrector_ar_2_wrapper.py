@@ -108,7 +108,7 @@ def main():
 
     # Set up command line call
     if opts.space_consecutive_settings_type == "consecutive" and opts.default_full_settings_type == "default":
-        cmd = "Corrector_AR_v2.0 -k %s -l %s -Q %s -t %s %s %s %s" % (opts.kmer_size, opts.consec_low_freq_cutoff, opts.ascii_shift_quality_value, opts.thread_num, opts.freq_cz, opts.freq_cz_len, opts.filelist)
+        cmd = "Corrector_AR_v2.0 -k %s -l %s -Q %s -t %s %s %s %s" % (opts.kmer_size, opts.consec_low_freq_cutoff, opts.ascii_shift_quality_value, thread_num, opts.freq_cz, opts.freq_cz_len, opts.filelist)
     if opts.space_consecutive_settings_type == "consecutive" and opts.default_full_settings_type == "full":
         cmd = "Corrector_AR_v2.0 -k %s -l %s -Q %s -t %s -c %s -n %s -a %s -e %s -w %s -q %s -m %s -j %s -o %s %s %s %s" % (opts.kmer_size, opts.consec_low_freq_cutoff, opts.ascii_shift_quality_value, thread_num, opts.max_read_change, opts.max_node_num, opts.remove_suspicious_data, opts.trim_suspicious_end_regions_Q, opts.trim_error_bases_Q, opts.qual_threshold_error_bases, opts.min_length_high_freq_region, opts.convert_reads_into_paired_end_file, opts.output_format, opts.freq_cz, opts.freq_cz_len, opts.filelist)
         if opts.length_trim_low_qual_ends != "":
