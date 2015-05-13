@@ -156,16 +156,15 @@
     </outputs>
     <tests>
         <test>
-            <!--
-                GapCloser –b config_file –a scaffold_file –o output_file
-            -->
-            <param name="refGenomeSource" value="indexed"/>
-            <param name="indices" value="phiX"/>
-            <param name="sPaired" value="single"/>
-            <param name="input1" value="bwa_wrapper_in1.fastqsanger" ftype="fastqsanger"/>
-            <param name="source_select" value="pre_set"/>
-            <param name="suppressHeader" value="true"/>
-            <output name="output" file="bwa_wrapper_out1.sam" ftype="sam" sort="True"/>
+            <param name="fastq_fasta" value="fasta"/>
+            <param name="input1" value="phiX174/Illumina_90bp2000IS10X/Illumina_90bp2000IS10X_1.fq"/>
+            <param name="input2" value="phiX174/Illumina_90bp2000IS10X/Illumina_90bp2000IS10X_2.fq"/>
+            <param name="settings_type" value="default"/>
+            <output name="stat">
+                    <assert_contents>
+                        <has_text text="Kmer species number" />
+                    </assert_contents>
+            </output>
         </test>
     </tests>
     <help>
