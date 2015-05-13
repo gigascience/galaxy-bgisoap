@@ -308,8 +308,7 @@
             <fileset dir="${test-data.dir}/phiX174"/>
         </copy>
         <copy file="${test-data.dir}/filelist.txt" todir="${build.dir}/corrector_ha_2/test-data"/>
-        <copy file="${test-data.dir}/kmerfreq.cz" todir="${build.dir}/corrector_ha_2/test-data"/>
-        <copy file="${test-data.dir}/kmerfreq.cz.len" todir="${build.dir}/corrector_ha_2/test-data"/>
+        <copy file="${test-data.dir}/kmerfreq.freq.gz" todir="${build.dir}/corrector_ha_2/test-data"/>
 
         <tar destfile="${build.dir}/corrector_ha_2.tar" basedir="${build.dir}/corrector_ha_2"/>
         <gzip destfile="${build.dir}/corrector_ha_2.tar.gz" src="${build.dir}/corrector_ha_2.tar"/>
