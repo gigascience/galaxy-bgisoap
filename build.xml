@@ -153,6 +153,57 @@
         <delete file="${build.dir}/soapdenovo2_pregraph_sparse.tar"/>
     </target>
 
+    <target name="soapdenovo2_contig" depends="build">
+        <mkdir dir="${build.dir}/soapdenovo2_contig"/>
+        <copy todir="${build.dir}/soapdenovo2_contig">
+            <fileset dir="${tools.dir}/soapdenovo2_contig"/>
+        </copy>
+        <mkdir dir="${build.dir}/soapdenovo2_contig/test-data"/>
+        <mkdir dir="${build.dir}/soapdenovo2_contig/test-data/phiX174"/>
+        <copy todir="${build.dir}/soapdenovo2_contig/test-data/phiX174">
+            <fileset dir="${test-data.dir}/phiX174"/>
+        </copy>
+        <copy file="${test-data.dir}/preGraphBasic.part" todir="${build.dir}/soapdenovo2_contig/test-data"/>
+
+        <tar destfile="${build.dir}/soapdenovo2_contig.tar" basedir="${build.dir}/soapdenovo2_contig"/>
+        <gzip destfile="${build.dir}/soapdenovo2_contig.tar.gz" src="${build.dir}/soapdenovo2_contig.tar"/>
+        <delete file="${build.dir}/soapdenovo2_contig.tar"/>
+    </target>
+
+    <target name="soapdenovo2_map" depends="build">
+        <mkdir dir="${build.dir}/soapdenovo2_map"/>
+        <copy todir="${build.dir}/soapdenovo2_map">
+            <fileset dir="${tools.dir}/soapdenovo2_map"/>
+        </copy>
+        <mkdir dir="${build.dir}/soapdenovo2_map/test-data"/>
+        <mkdir dir="${build.dir}/soapdenovo2_map/test-data/phiX174"/>
+        <copy todir="${build.dir}/soapdenovo2_map/test-data/phiX174">
+            <fileset dir="${test-data.dir}/phiX174"/>
+        </copy>
+        <copy file="${test-data.dir}/preGraphBasic.part" todir="${build.dir}/soapdenovo2_map/test-data"/>
+
+        <tar destfile="${build.dir}/soapdenovo2_map.tar" basedir="${build.dir}/soapdenovo2_map"/>
+        <gzip destfile="${build.dir}/soapdenovo2_map.tar.gz" src="${build.dir}/soapdenovo2_map.tar"/>
+        <delete file="${build.dir}/soapdenovo2_map.tar"/>
+    </target>
+
+    <target name="soapdenovo2_scaff" depends="build">
+        <mkdir dir="${build.dir}/soapdenovo2_scaff"/>
+        <copy todir="${build.dir}/soapdenovo2_scaff">
+            <fileset dir="${tools.dir}/soapdenovo2_scaff"/>
+        </copy>
+        <mkdir dir="${build.dir}/soapdenovo2_scaff/test-data"/>
+        <mkdir dir="${build.dir}/soapdenovo2_scaff/test-data/phiX174"/>
+        <copy todir="${build.dir}/soapdenovo2_scaff/test-data/phiX174">
+            <fileset dir="${test-data.dir}/phiX174"/>
+        </copy>
+        <copy file="${test-data.dir}/preGraphBasic.part" todir="${build.dir}/soapdenovo2_scaff/test-data"/>
+
+        <tar destfile="${build.dir}/soapdenovo2_scaff.tar" basedir="${build.dir}/soapdenovo2_scaff"/>
+        <gzip destfile="${build.dir}/soapdenovo2_scaff.tar.gz" src="${build.dir}/soapdenovo2_scaff.tar"/>
+        <delete file="${build.dir}/soapdenovo2_scaff.tar"/>
+    </target>
+
     <target name="clean" description="clean up">
         <!-- Delete build directory -->
         <delete dir="${build.dir}"/>
