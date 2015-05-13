@@ -3,7 +3,7 @@
     <package name="soapfilter" version="2.0">
         <install version="1.0">
             <actions_group>
-                <!-- Download executable for GapCloser compatible with 64-bit Linux -->
+                <!-- Download executable compatible with 64-bit Linux -->
                 <actions os="linux" architecture="x86_64">
                     <action type="download_by_url">https://github.com/gigascience/SOAPdenovo2/archive/gigasci.zip</action>
                     <action type="move_directory_files">
@@ -29,7 +29,7 @@
             </actions_group>
         </install>
         <readme>
-Downloads the precompiled 64bit Linux SOAPfilter version 2 binaries.
+Downloads the pre-compiled 64-bit Linux SOAPfilter version 2 binary.
         </readme>
     </package>
 </tool_dependency>
