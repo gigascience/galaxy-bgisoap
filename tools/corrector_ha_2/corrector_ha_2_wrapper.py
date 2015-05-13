@@ -36,6 +36,8 @@ def html_report_from_directory(html_out, dir):
 
 
 def main():
+    thread_num = 1
+
     # Parse command line
     parser = optparse.OptionParser()
     # List of params
@@ -97,7 +99,7 @@ def main():
     if opts.default_full_settings_type == "default":
         cmd = "Corrector_HA_v2.0 %s %s" % (opts.freq_gz, opts.filelist)
     elif opts.default_full_settings_type == "full":
-        cmd = "Corrector_HA_v2.0 -k %s -l %s -m %s -c %s -n %s -a %s -Q %s -e %s -w %s -q %s -r %s -t %s -j %s -o %s %s %s " % (opts.kmer_size, opts.low_freq_cutoff, opts.min_length_high_freq_region, opts.max_read_change, opts.max_node_num, opts.remove_suspicious_data, opts.ascii_shift_quality_value, opts.trim_suspicious_end_regions_Q, opts.trim_error_bases_Q, opts.qual_threshold_error_bases, opts.min_length_trimmed_read, opts.thread_num, opts.convert_reads_into_paired_end_file, opts.output_format, opts.freq_gz, opts.filelist)
+        cmd = "Corrector_HA_v2.0 -k %s -l %s -m %s -c %s -n %s -a %s -Q %s -e %s -w %s -q %s -r %s -t %s -j %s -o %s %s %s " % (opts.kmer_size, opts.low_freq_cutoff, opts.min_length_high_freq_region, opts.max_read_change, opts.max_node_num, opts.remove_suspicious_data, opts.ascii_shift_quality_value, opts.trim_suspicious_end_regions_Q, opts.trim_error_bases_Q, opts.qual_threshold_error_bases, opts.min_length_trimmed_read, thread_num, opts.convert_reads_into_paired_end_file, opts.output_format, opts.freq_gz, opts.filelist)
         if opts.length_trim_low_qual_ends != "":
             cmd =  cmd + " -x %s" % opts.length_trim_low_qual_ends
 
