@@ -215,6 +215,23 @@
         <delete file="${build.dir}/package_soapec_2_0.tar"/>
     </target>
 
+    <target name="kmerfreq_ar_2" depends="build">
+        <mkdir dir="${build.dir}/kmerfreq_ar_2"/>
+        <copy todir="${build.dir}/kmerfreq_ar_2">
+            <fileset dir="${tools.dir}/kmerfreq_ar_2"/>
+        </copy>
+        <mkdir dir="${build.dir}/kmerfreq_ar_2/test-data"/>
+        <mkdir dir="${build.dir}/kmerfreq_ar_2/test-data/phiX174"/>
+        <copy todir="${build.dir}/kmerfreq_ar_2/test-data/phiX174">
+            <fileset dir="${test-data.dir}/phiX174"/>
+        </copy>
+        <copy file="${test-data.dir}/preGraphBasic.part" todir="${build.dir}/kmerfreq_ar_2/test-data"/>
+
+        <tar destfile="${build.dir}/kmerfreq_ar_2.tar" basedir="${build.dir}/kmerfreq_ar_2"/>
+        <gzip destfile="${build.dir}/kmerfreq_ar_2.tar.gz" src="${build.dir}/kmerfreq_ar_2.tar"/>
+        <delete file="${build.dir}/kmerfreq_ar_2.tar"/>
+    </target>
+
     <target name="clean" description="clean up">
         <!-- Delete build directory -->
         <delete dir="${build.dir}"/>
