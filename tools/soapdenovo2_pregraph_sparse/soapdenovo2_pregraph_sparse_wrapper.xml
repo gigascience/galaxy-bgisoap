@@ -1,5 +1,5 @@
-<tool id="soapdenovo2_pregraph_sparse_wrapper" name="pregraph sparse" version="1.0.3" force_history_refresh="True">
-    <description>- a more memory-efficient pregraph tool</description>
+<tool id="soapdenovo2_pregraph_sparse_wrapper" name="pregraph sparse" version="0.1" force_history_refresh="True">
+    <description>- a more memory-efficient version of pregraph</description>
     <requirements>
         <requirement type="package" version="2.04">soapdenovo</requirement>
     </requirements>
@@ -407,19 +407,13 @@ b2=$x.data_type.data_format.input2
     <tests>
         <test>
             <param name="config_source_select" value="history"/>
-            <param name="own_file" value="bgisoap/soapdenovo2/soap.config"/>
-
+            <param name="own_file" value="phiX174/soap.config"/>
             <param name="kmer_size" value="55"/>
             <param name="kmer_freq_cutoff" value="0"/>
-
             <param name="settings_type" value="default"/>
-
-            <output name="soap_config">
-                <assert_contents>
-                    <has_line line="max_rd_len=90" />
-                </assert_contents>
-            </output>
-
+            <output name="pregraph_basic"
+                    file="preGraphBasic.part"
+                    compare="contains"/>
         </test>
     </tests>
     <help>
@@ -452,7 +446,7 @@ Note that a new algorithm is applied in this module so the contigs and scaffolds
 may not exactly the same as the original one.
 
 If you do not have an idea about how large your genome is, it is better to have
-a kmer analysis(kmer frequency distribution) to estimate the genome size before
+a kmer analysis (kmer frequency distribution) to estimate the genome size before
 assembly. Alternatively, set the genome size to a relatively large number and
 then adjust it if the pregraph sparse step fails. For reference, it’s suitable
 to set -z 5000000000 for human (3 giga base pair genome).”
