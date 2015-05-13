@@ -136,6 +136,23 @@
         <delete file="${build.dir}/soapdenovo2_pregraph.tar"/>
     </target>
 
+    <target name="soapdenovo2_pregraph_sparse" depends="build">
+        <mkdir dir="${build.dir}/soapdenovo2_pregraph_sparse"/>
+        <copy todir="${build.dir}/soapdenovo2_pregraph_sparse">
+            <fileset dir="${tools.dir}/soapdenovo2_pregraph_sparse"/>
+        </copy>
+        <mkdir dir="${build.dir}/soapdenovo2_pregraph_sparse/test-data"/>
+        <mkdir dir="${build.dir}/soapdenovo2_pregraph_sparse/test-data/phiX174"/>
+        <copy todir="${build.dir}/soapdenovo2_pregraph_sparse/test-data/phiX174">
+            <fileset dir="${test-data.dir}/phiX174"/>
+        </copy>
+        <copy file="${test-data.dir}/preGraphBasic.part" todir="${build.dir}/soapdenovo2_pregraph_sparse/test-data"/>
+
+        <tar destfile="${build.dir}/soapdenovo2_pregraph_sparse.tar" basedir="${build.dir}/soapdenovo2_pregraph_sparse"/>
+        <gzip destfile="${build.dir}/soapdenovo2_pregraph_sparse.tar.gz" src="${build.dir}/soapdenovo2_pregraph_sparse.tar"/>
+        <delete file="${build.dir}/soapdenovo2_pregraph_sparse.tar"/>
+    </target>
+
     <target name="clean" description="clean up">
         <!-- Delete build directory -->
         <delete dir="${build.dir}"/>
