@@ -251,6 +251,36 @@
         <delete file="${build.dir}/corrector_ar_2.tar"/>
     </target>
 
+    <target name="package_soapfilter_2_0" depends="build">
+        <mkdir dir="${build.dir}/package_soapfilter_2_0"/>
+        <copy todir="${build.dir}/package_soapfilter_2_0">
+            <fileset dir="${dependencies.dir}/package_soapfilter_2_0"/>
+        </copy>
+
+        <tar destfile="${build.dir}/package_soapfilter_2_0.tar" basedir="${build.dir}/package_soapfilter_2_0"/>
+        <gzip destfile="${build.dir}/package_soapfilter_2_0.tar.gz" src="${build.dir}/package_soapfilter_2_0.tar"/>
+        <delete file="${build.dir}/package_soapfilter_2_0.tar"/>
+    </target>
+
+    <target name="soapfilter2" depends="build">
+        <mkdir dir="${build.dir}/soapfilter2"/>
+        <copy todir="${build.dir}/soapfilter2">
+            <fileset dir="${tools.dir}/soapfilter2"/>
+        </copy>
+        <mkdir dir="${build.dir}/soapfilter2/test-data"/>
+        <mkdir dir="${build.dir}/soapfilter2/test-data/phiX174"/>
+        <copy todir="${build.dir}/soapfilter2/test-data/phiX174">
+            <fileset dir="${test-data.dir}/phiX174"/>
+        </copy>
+        <copy file="${test-data.dir}/filelist.txt" todir="${build.dir}/soapfilter2/test-data"/>
+        <copy file="${test-data.dir}/kmerfreq.cz" todir="${build.dir}/soapfilter2/test-data"/>
+        <copy file="${test-data.dir}/kmerfreq.cz.len" todir="${build.dir}/soapfilter2/test-data"/>
+
+        <tar destfile="${build.dir}/soapfilter2.tar" basedir="${build.dir}/soapfilter2"/>
+        <gzip destfile="${build.dir}/soapfilter2.tar.gz" src="${build.dir}/soapfilter2.tar"/>
+        <delete file="${build.dir}/soapfilter2.tar"/>
+    </target>
+
     <target name="clean" description="clean up">
         <!-- Delete build directory -->
         <delete dir="${build.dir}"/>
