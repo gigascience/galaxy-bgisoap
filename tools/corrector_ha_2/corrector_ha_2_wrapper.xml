@@ -191,10 +191,18 @@
             <filter>output_format=="0"</filter>
         </data>
     </outputs>
-    <!--<tests>-->
-        <!--<test>-->
-        <!--</test>-->
-    <!--</tests>-->
+    <tests>
+        <test>
+            <param name="filelist" value="filelist.txt"/>
+            <param name="freq_gz" value="kmerfreq.freq.gz"/>
+            <param name="settings_type" value="default"/>
+            <output name="html_file">
+                    <assert_contents>
+                        <has_text text="Corrector HA outputs" />
+                    </assert_contents>
+            </output>
+        </test>
+    </tests>
     <help>
 **What it does**
 
