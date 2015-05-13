@@ -313,10 +313,23 @@
             <filter>output_format=="0"</filter>
         </data>
     </outputs>
-    <!--<tests>-->
-    <!--<test>-->
-    <!--</test>-->
-    <!--</tests>-->
+    <tests>
+        <test>
+            <param name="space_consecutive_settings_type" value="consecutive"/>
+            <param name="filelist" value="filelist.txt"/>
+            <param name="freq_cz" value="kmerfreq.cz"/>
+            <param name="freq_cz_len" value="kmerfreq.cz.len"/>
+            <param name="kmer_size" value="13"/>
+            <param name="consec_low_freq_cutoff" value="3"/>
+            <param name="ascii_shift_quality_value" value="64"/>
+            <param name="settings_type" value="default"/>
+            <output name="html_file">
+                    <assert_contents>
+                        <has_text text="Corrector AR outputs" />
+                    </assert_contents>
+            </output>
+        </test>
+    </tests>
     <help>
 **What it does**
 
