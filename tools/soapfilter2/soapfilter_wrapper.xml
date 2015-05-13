@@ -176,10 +176,18 @@
               label="${read2.name}.clean">
         </data>
     </outputs>
-    <!--<tests>-->
-        <!--<test>-->
-        <!--</test>-->
-    <!--</tests>-->
+    <tests>
+        <test>
+            <param name="read1" value="phiX174/Illumina_90bp2000IS10X/Illumina_90bp2000IS10X_1.fq"/>
+            <param name="read2" value="phiX174/Illumina_90bp2000IS10X/Illumina_90bp2000IS10X_2.fq"/>
+            <param name="settings_type" value="default"/>
+            <output name="stat">
+                    <assert_contents>
+                        <has_text text="Insert_size(experiment)" />
+                    </assert_contents>
+            </output>
+        </test>
+    </tests>
     <help>
 **What it does**
 
