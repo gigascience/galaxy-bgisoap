@@ -1,4 +1,4 @@
-<tool id="corrector" name="Corrector" version="0.1">
+<tool id="corrector" name="Corrector1" version="0.1">
     <description>- corrects sequencing errors in short reads</description>
     <requirements>
         <requirement type="package" version="1.0">soapec</requirement>
@@ -77,6 +77,23 @@
               label="corr.filelist">
         </data>
     </outputs>
+    <tests>
+        <test>
+            <param name="filelist" value="filelist.txt"/>
+            <param name="freq" value="kmerfreq.freq"/>
+            <param name="kmer_index" value="0"/>
+            <param name="start_cutoff" value="3"/>
+            <param name="end_cutoff" value="3"/>
+            <param name="delta" value="3"/>
+            <param name="seed_length" value="3"/>
+            <param name="file_format" value="1"/>
+            <output name="corr_filelist">
+                <assert_contents>
+                    <has_line line="database" />
+                </assert_contents>
+            </output>
+        </test>
+    </tests>
     <help>
 **What it does**
 
