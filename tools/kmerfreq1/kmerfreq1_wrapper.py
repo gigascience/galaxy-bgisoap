@@ -113,9 +113,9 @@ def main():
         # Close streams
         # tmp_stdout.close()
         tmp_stderr.close()
-	if returncode != 0:
+        if returncode != 0:
             # raise Exception, stderr
-	    print "Return code does not equal 0"
+            print "Return code does not equal 0"
 
     except Exception, e:
         raise Exception, 'Problem performing KmerFreq process ' + str(e)
