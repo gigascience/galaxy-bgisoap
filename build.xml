@@ -400,6 +400,24 @@
         <delete file="${build.dir}/kmerfreq1.tar"/>
     </target>
 
+    <target name="corrector1" depends="build">
+        <mkdir dir="${build.dir}/corrector1"/>
+        <copy todir="${build.dir}/corrector1">
+            <fileset dir="${tools.dir}/corrector1"/>
+        </copy>
+        <mkdir dir="${build.dir}/corrector1/test-data"/>
+        <mkdir dir="${build.dir}/corrector1/test-data/phiX174"/>
+        <copy todir="${build.dir}/corrector1/test-data/phiX174">
+            <fileset dir="${test-data.dir}/phiX174"/>
+        </copy>
+        <copy file="${test-data.dir}/filelist.txt" todir="${build.dir}/corrector1/test-data"/>
+        <copy file="${test-data.dir}/kmerfreq.freq.gz" todir="${build.dir}/corrector1/test-data"/>
+
+        <tar destfile="${build.dir}/corrector1.tar" basedir="${build.dir}/corrector1"/>
+        <gzip destfile="${build.dir}/corrector1.tar.gz" src="${build.dir}/corrector1.tar"/>
+        <delete file="${build.dir}/corrector1.tar"/>
+    </target>
+
     <target name="clean" description="clean up">
         <!-- Delete build directory -->
         <delete dir="${build.dir}"/>
