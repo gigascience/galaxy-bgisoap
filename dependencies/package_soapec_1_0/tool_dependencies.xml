@@ -3,7 +3,7 @@
     <package name="soapec" version="1.0">
         <install version="1.0">
             <actions_group>
-                <!-- Download executable for GapCloser compatible with 64-bit Linux -->
+                <!-- Download executables compatible with 64-bit Linux -->
                 <actions os="linux" architecture="x86_64">
                     <action type="download_by_url">https://github.com/gigascience/SOAPdenovo2/archive/gigasci.zip</action>
                     <action type="move_directory_files">
