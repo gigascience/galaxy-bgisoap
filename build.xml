@@ -315,6 +315,17 @@
         <delete file="${build.dir}/corrector_ha_2.tar"/>
     </target>
 
+    <target name="package_gapcloser_1_12" depends="build">
+        <mkdir dir="${build.dir}/package_gapcloser_1_12"/>
+        <copy todir="${build.dir}/package_gapcloser_1_12">
+            <fileset dir="${dependencies.dir}/package_gapcloser_1_12"/>
+        </copy>
+
+        <tar destfile="${build.dir}/package_gapcloser_1_12.tar" basedir="${build.dir}/package_gapcloser_1_12"/>
+        <gzip destfile="${build.dir}/package_gapcloser_1_12.tar.gz" src="${build.dir}/package_gapcloser_1_12.tar"/>
+        <delete file="${build.dir}/package_gapcloser_1_12.tar"/>
+    </target>
+
     <target name="clean" description="clean up">
         <!-- Delete build directory -->
         <delete dir="${build.dir}"/>
