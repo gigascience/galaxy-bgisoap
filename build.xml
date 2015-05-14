@@ -394,7 +394,6 @@
         <copy todir="${build.dir}/kmerfreq1/test-data/phiX174">
             <fileset dir="${test-data.dir}/phiX174"/>
         </copy>
-        <copy file="${test-data.dir}/KmerFreq_AR.genome_estimate.part" todir="${build.dir}/kmerfreq1/test-data"/>
 
         <tar destfile="${build.dir}/kmerfreq1.tar" basedir="${build.dir}/kmerfreq1"/>
         <gzip destfile="${build.dir}/kmerfreq1.tar.gz" src="${build.dir}/kmerfreq1.tar"/>
