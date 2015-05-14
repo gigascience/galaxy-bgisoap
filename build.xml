@@ -355,6 +355,24 @@
         <delete file="${build.dir}/package_soapdenovo_1_0.tar"/>
     </target>
 
+    <target name="soapdenovo1" depends="build">
+        <mkdir dir="${build.dir}/soapdenovo1"/>
+        <copy todir="${build.dir}/soapdenovo1">
+            <fileset dir="${tools.dir}/soapdenovo1"/>
+        </copy>
+        <mkdir dir="${build.dir}/soapdenovo1/test-data"/>
+        <mkdir dir="${build.dir}/soapdenovo1/test-data/phiX174"/>
+        <copy todir="${build.dir}/soapdenovo1/test-data/phiX174">
+            <fileset dir="${test-data.dir}/phiX174"/>
+        </copy>
+        <copy file="${test-data.dir}/soapdenovo2.scaffolds" todir="${build.dir}/soapdenovo1/test-data"/>
+        <copy file="${test-data.dir}/gapclo.scaffolds.part" todir="${build.dir}/soapdenovo1/test-data"/>
+
+        <tar destfile="${build.dir}/soapdenovo1.tar" basedir="${build.dir}/soapdenovo1"/>
+        <gzip destfile="${build.dir}/soapdenovo1.tar.gz" src="${build.dir}/soapdenovo1.tar"/>
+        <delete file="${build.dir}/soapdenovo1.tar"/>
+    </target>
+
     <target name="clean" description="clean up">
         <!-- Delete build directory -->
         <delete dir="${build.dir}"/>
