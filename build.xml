@@ -344,6 +344,17 @@
         <delete file="${build.dir}/gapcloser_1_12.tar"/>
     </target>
 
+    <target name="package_soapdenovo_1_0" depends="build">
+        <mkdir dir="${build.dir}/package_soapdenovo_1_0"/>
+        <copy todir="${build.dir}/package_soapdenovo_1_0">
+            <fileset dir="${dependencies.dir}/package_soapdenovo_1_0"/>
+        </copy>
+
+        <tar destfile="${build.dir}/package_soapdenovo_1_0.tar" basedir="${build.dir}/package_soapdenovo_1_0"/>
+        <gzip destfile="${build.dir}/package_soapdenovo_1_0.tar.gz" src="${build.dir}/package_soapdenovo_1_0.tar"/>
+        <delete file="${build.dir}/package_soapdenovo_1_0.tar"/>
+    </target>
+
     <target name="clean" description="clean up">
         <!-- Delete build directory -->
         <delete dir="${build.dir}"/>
