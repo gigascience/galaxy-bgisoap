@@ -35,7 +35,7 @@ def html_report_from_directory(html_out, dir):
 
 
 def main():
-    thread_num = 16
+    thread_num = 4
 
     # Parse command line
     parser = optparse.OptionParser()
