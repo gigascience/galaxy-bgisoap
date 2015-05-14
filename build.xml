@@ -411,7 +411,7 @@
             <fileset dir="${test-data.dir}/phiX174"/>
         </copy>
         <copy file="${test-data.dir}/filelist.txt" todir="${build.dir}/corrector1/test-data"/>
-        <copy file="${test-data.dir}/kmerfreq.freq.gz" todir="${build.dir}/corrector1/test-data"/>
+        <copy file="${test-data.dir}/kmerfreq.freq" todir="${build.dir}/corrector1/test-data"/>
 
         <tar destfile="${build.dir}/corrector1.tar" basedir="${build.dir}/corrector1"/>
         <gzip destfile="${build.dir}/corrector1.tar.gz" src="${build.dir}/corrector1.tar"/>
