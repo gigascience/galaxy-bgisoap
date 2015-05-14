@@ -1,4 +1,4 @@
-<tool id="gapcloser_1_12_wrapper" name="GapCloser" version="0.1">
+<tool id="gapcloser_1_12_wrapper" name="GapCloser 1.12" version="0.1">
     <description>- close gaps in scaffolds</description>
     <requirements>
         <requirement type="package" version="1.12">gapcloser</requirement>
@@ -206,196 +206,7 @@
                     </conditional>
                 </repeat>
             </when>
-        </conditional>  <conditional name="config_source">
-        <param name="config_source_select" type="select" label="Select a configuration file from history or create a new one?">
-            <option value="history">Use one from history</option>
-            <option value="create">Create new configuration file</option>
-        </param>
-        <when value="history">
-            <param name="own_file" type="data" metadata_name="dbkey" label="Select configuration file from history" />
-        </when>
-        <when value="create">
-            <param name="max_read_length"
-                   type="integer"
-                   format="input"
-                   label="Maximum read length"
-                   value="90"/>
-            <repeat name="libraries" title="libraries" min="1">
-                <!-- [LIB] -->
-                <param name="avg_ins"
-                       type="integer"
-                       label="Average insert size"
-                       value="200"/>
-                <param name="reverse_seq"
-                       type="select"
-                       label="Reverse sequence?"
-                       value="0">
-                    <option value="0">forward-reverse</option>
-                    <option value="1">reverse-forward</option>
-                </param>
-                <param name="asm_flags"
-                       type="select"
-                       label="Which operations should the reads be used for?"
-                       value="3">
-                    <option value="3">For contig and scaffold assembly</option>
-                    <option value="1">For only contig assembly</option>
-                    <option value="2">For only scaffold assembly</option>
-                </param>
-                <param name="rd_len_cutoff"
-                       optional="true"
-                       type="integer"
-                       label="Length of base pairs to use from reads"
-                       value=""/>
-                <param name="rank"
-                       type="integer"
-                       label="Which order are the reads used while scaffolding"
-                       value="1"/>
-                <param name="pair_num_cutoff"
-                       optional="true"
-                       type="integer"
-                       label="Pair number cutoff for a reliable connection"
-                       value=""/>
-                <param name="map_len"
-                       optional="true"
-                       type="integer"
-                       label="Length of contig that has to be aligned for a reliable read location"
-                       value=""/>
-
-                <repeat name="files" title="files" min="1">
-                    <!-- Actual sequence data - can be single or paired reads -->
-                    <conditional name="data_type">
-                        <param name="single_paired"
-                               type="select"
-                               label="What type of data are you using?">
-                            <option value="paired">Paired</option>
-                            <option value="single">Single</option>
-                        </param>
-                        <when value="paired">
-                            <conditional name="data_format">
-                                <param name="fastq_fasta"
-                                       type="select"
-                                       label="What is the format of your sequence data?">
-                                    <option value="fastq">FASTQ</option>
-                                    <option value="fastq_gzipped">FASTQ_GZIPPED</option>
-                                    <option value="fasta">FASTA</option>
-                                    <option value="fasta_gzipped">FASTA_GZIPPED</option>
-                                    <option value="bam">BAM</option>
-                                </param>
-                                <when value="fastq">
-                                    <param name="input1"
-                                           type="data"
-                                           format="input"
-                                           label="Forward FASTQ file">
-                                    </param>
-                                    <param name="input2"
-                                           type="data"
-                                           format="input"
-                                           label="Reverse FASTQ file">
-                                    </param>
-                                </when>
-                                <when value="fastq_gzipped">
-                                    <param name="input1"
-                                           type="data"
-                                           format="input"
-                                           label="Forward FASTQ Gzipped file">
-                                    </param>
-                                    <param name="input2"
-                                           type="data"
-                                           format="input"
-                                           label="Reverse FASTQ Gzipped file">
-                                    </param>
-                                </when>
-                                <when value="fasta">
-                                    <param name="input1"
-                                           type="data"
-                                           format="input"
-                                           label="Forward FASTA file">
-                                    </param>
-                                    <param name="input2"
-                                           type="data"
-                                           format="input"
-                                           label="Reverse FASTA file">
-                                    </param>
-                                </when>
-                                <when value="fasta_gzipped">
-                                    <param name="input1"
-                                           type="data"
-                                           format="input"
-                                           label="Forward FASTA Gzipped file">
-                                    </param>
-                                    <param name="input2"
-                                           type="data"
-                                           format="input"
-                                           label="Reverse FASTA Gzipped file">
-                                    </param>
-                                </when>
-                                <when value="bam">
-                                    <param name="input1"
-                                           type="data"
-                                           format="input"
-                                           label="Forward BAM file">
-                                    </param>
-                                    <param name="input2"
-                                           type="data"
-                                           format="input"
-                                           label="Reverse BAM file">
-                                    </param>
-                                </when>
-                            </conditional>
-                        </when>
-                        <when value="single">
-                            <conditional name="data_format">
-                                <param name="fastq_fasta"
-                                       type="select"
-                                       label="What type of data are you using?">
-                                    <option value="fastq">FASTQ</option>
-                                    <option value="fastq_gzipped">FASTQ_GZIPPED</option>
-                                    <option value="fasta">FASTA</option>
-                                    <option value="fasta_gzipped">FASTA_GZIPPED</option>
-                                    <option value="bam">BAM</option>
-                                </param>
-                                <when value="fastq">
-                                    <param name="input1"
-                                           type="data"
-                                           format="input"
-                                           label="Forward FASTQ file">
-                                    </param>
-                                </when>
-                                <when value="fastq_gzipped">
-                                    <param name="input1"
-                                           type="data"
-                                           format="input"
-                                           label="Forward FASTQ Gzipped file">
-                                    </param>
-                                </when>
-                                <when value="fasta">
-                                    <param name="input1"
-                                           type="data"
-                                           format="input"
-                                           label="Forward FASTA file">
-                                    </param>
-                                </when>
-                                <when value="fasta_gzipped">
-                                    <param name="input1"
-                                           type="data"
-                                           format="input"
-                                           label="Forward FASTA Gzipped file">
-                                    </param>
-                                </when>
-                                <when value="bam">
-                                    <param name="input1"
-                                           type="data"
-                                           format="input"
-                                           label="Forward BAM file">
-                                    </param>
-                                </when>
-                            </conditional>
-                        </when>
-                    </conditional>
-                </repeat>
-            </repeat>
-        </when>
-    </conditional>
+        </conditional>
         <!--Other parameters -->
         <conditional name="default_full_settings">
             <param name="settings_type"
@@ -502,14 +313,17 @@ b2=$x.data_type.data_format.input2
               label="closed.gaps.info">
         </data>
     </outputs>
-    <!--<tests>-->
-    <!--<test>-->
-    <!--<param name="max_read_length"-->
-    <!--value="50"/>-->
-    <!--<output name="contig"-->
-    <!--value="hello world"/>-->
-    <!--</test>-->
-    <!--</tests>-->
+    <tests>
+        <test>
+            <param name="scaff_in" value="soapdenovo2.scaffolds"/>
+            <param name="config_source_select" value="history"/>
+            <param name="own_file" value="phiX174/soap.config"/>
+            <param name="settings_type" value="default"/>
+            <output name="scaff"
+                    file="gapclo.scaffolds.part"
+                    compare="contains"/>
+        </test>
+    </tests>
     <help>
 **What it does**
 
