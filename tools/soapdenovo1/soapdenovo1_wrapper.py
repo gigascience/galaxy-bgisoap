@@ -24,7 +24,7 @@ def cleanup_before_exit(tmp_dir):
 
 
 def parse(tmp_dir, filename):
-    myfile = open(tmp_dir + "/new_soap.config", "w")
+    myfile = open(tmp_dir + "/soap.config", "w")
     f = open(tmp_dir + "/" + filename, 'r')
     for line in f:
         line = line.rstrip()
@@ -55,30 +55,33 @@ def parse(tmp_dir, filename):
 
 
 def main():
-    #Parse command line
+    # Thread number
+    ncpu = 4
+
+    # Parse command line
     parser = optparse.OptionParser()
     parser.add_option("", "--file_source", dest="file_source")
     parser.add_option("", "--configuration", dest="configuration")
 
     parser.add_option("", "--analysis_settings_type", dest="analysis_settings_type")
     parser.add_option("", "--default_full_settings_type", dest="default_full_settings_type")
-    #Custom params
+    # Custom params
     parser.add_option("", "--kmer_size", dest="kmer_size")
-    parser.add_option("", "--ncpu", dest="ncpu")
+    # parser.add_option("", "--ncpu", dest="ncpu")
     parser.add_option("", "--delete_kmers_freq_one", dest="delete_kmers_freq_one")
     parser.add_option("", "--delete_edges_coverage_one", dest="delete_edges_coverage_one")
     parser.add_option("", "--unsolve_repeats", dest="unsolve_repeats")
 
-    #Outputs
+    # Outputs
     parser.add_option("", "--contig", dest='contig', help="Contig sequence file")
     parser.add_option("", "--scafseq", dest='scafseq', help="Scaffold sequence file")
     parser.add_option("", "--config", dest="config")
     opts, args = parser.parse_args()
 
-    #Create temp directory for performing analysis
+    # Create temp directory for performing analysis
     tmp_dir = tempfile.mkdtemp(prefix="tmp-soapdenovo1-")
     print tmp_dir
-    #Pick up soap.config file from command line
+    # Pick up soap.config file from command line
     script_filename = sys.argv[1]
 
     print opts.configuration
@@ -92,9 +95,9 @@ def main():
         parse(tmp_dir, "soap.config")
 
     if opts.default_full_settings_type == "default":
-        cmd = "SOAPdenovo_v1.0 all -s %s -o %s" % (tmp_dir + '/new_soap.config', tmp_dir + "/result")
+        cmd = "SOAPdenovo_v1.0 all -s %s -o %s" % (tmp_dir + '/soap.config', tmp_dir + "/result")
     elif opts.default_full_settings_type == "full":
-        cmd = "SOAPdenovo_v1.0 all -s %s -o %s -K %s -p %s" % (tmp_dir + '/new_soap.config', tmp_dir + "/result", opts.kmer_size, opts.ncpu)
+        cmd = "SOAPdenovo_v1.0 all -s %s -o %s -K %s -p %s" % (tmp_dir + '/soap.config', tmp_dir + "/result", opts.kmer_size, ncpu)
         if opts.delete_edges_coverage_one == "yes":
             cmd += " -D"
         if opts.delete_kmers_freq_one == "yes":
@@ -149,7 +152,7 @@ def main():
     file.close()
 
     config_out = open(opts.config, 'w')
-    f = open(tmp_dir + '/new_soap.config')
+    f = open(tmp_dir + '/soap.config')
     for line in f:
         config_out.write(line)
     config_out.close()
