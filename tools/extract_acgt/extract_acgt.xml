@@ -13,6 +13,14 @@
               label="contigs"/>
     </outputs>
     <tests>
+        <test>
+            <param name="scafseq_gc_fa" value="soapdenovo2.scaffolds"/>
+            <output name="scafseq_gc_ctg_fa">
+                <assert_contents>
+                    <has_line line=">scaffold1_1 length=54" />
+                </assert_contents>
+            </output>
+        </test>
     </tests>
     <help>
 **What it does**
