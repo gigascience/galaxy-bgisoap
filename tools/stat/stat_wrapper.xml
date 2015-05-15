@@ -1,5 +1,5 @@
 <tool id="stat_wrapper" name="stat">
-  <description>Extract information from GAGE output</description>
+  <description>- Extract information from GAGE output</description>
     <command interpreter="perl">stat.pl $input > $output</command>
   <inputs>
     <param name="input" type="data"  format="Text" label="GAGE output"/>
