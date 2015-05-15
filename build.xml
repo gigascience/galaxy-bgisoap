@@ -418,6 +418,34 @@
         <delete file="${build.dir}/corrector1.tar"/>
     </target>
 
+    <target name="package_gapcloser_1_10" depends="build">
+        <mkdir dir="${build.dir}/package_gapcloser_1_10"/>
+        <copy todir="${build.dir}/package_gapcloser_1_10">
+            <fileset dir="${dependencies.dir}/package_gapcloser_1_10"/>
+        </copy>
+
+        <tar destfile="${build.dir}/package_gapcloser_1_10.tar" basedir="${build.dir}/package_gapcloser_1_10"/>
+        <gzip destfile="${build.dir}/package_gapcloser_1_10.tar.gz" src="${build.dir}/package_gapcloser_1_10.tar"/>
+        <delete file="${build.dir}/package_gapcloser_1_10.tar"/>
+    </target>
+
+    <target name="gapcloser_1_10" depends="build">
+        <mkdir dir="${build.dir}/gapcloser_1_10"/>
+        <copy todir="${build.dir}/gapcloser_1_10">
+            <fileset dir="${tools.dir}/gapcloser_1_10"/>
+        </copy>
+        <mkdir dir="${build.dir}/gapcloser_1_10/test-data"/>
+        <mkdir dir="${build.dir}/gapcloser_1_10/test-data/phiX174"/>
+        <copy todir="${build.dir}/gapcloser_1_10/test-data/phiX174">
+            <fileset dir="${test-data.dir}/phiX174"/>
+        </copy>
+        <copy file="${test-data.dir}/soapdenovo1.scaffolds" todir="${build.dir}/gapcloser_1_10/test-data"/>
+
+        <tar destfile="${build.dir}/gapcloser_1_10.tar" basedir="${build.dir}/gapcloser_1_10"/>
+        <gzip destfile="${build.dir}/gapcloser_1_10.tar.gz" src="${build.dir}/gapcloser_1_10.tar"/>
+        <delete file="${build.dir}/gapcloser_1_10.tar"/>
+    </target>
+
     <target name="clean" description="clean up">
         <!-- Delete build directory -->
         <delete dir="${build.dir}"/>
