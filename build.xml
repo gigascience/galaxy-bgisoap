@@ -459,6 +459,19 @@
         <delete file="${build.dir}/extract_acgt.tar"/>
     </target>
 
+    <target name="stat" depends="build">
+        <mkdir dir="${build.dir}/stat"/>
+        <copy todir="${build.dir}/stat">
+            <fileset dir="${tools.dir}/stat"/>
+        </copy>
+        <mkdir dir="${build.dir}/stat/test-data"/>
+        <copy file="${test-data.dir}/gage.output" todir="${build.dir}/stat/test-data"/>
+
+        <tar destfile="${build.dir}/stat.tar" basedir="${build.dir}/stat"/>
+        <gzip destfile="${build.dir}/stat.tar.gz" src="${build.dir}/stat.tar"/>
+        <delete file="${build.dir}/stat.tar"/>
+    </target>
+
     <target name="clean" description="clean up">
         <!-- Delete build directory -->
         <delete dir="${build.dir}"/>
