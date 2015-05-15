@@ -1,4 +1,4 @@
-<tool id="gapcloser_1_10_wrapper" name="GapCloser" version="0.1">
+<tool id="gapcloser_1_10_wrapper" name="GapCloser 1.10" version="0.1">
     <description>- close gaps in scaffolds</description>
     <requirements>
         <requirement type="package" version="1.10">gapcloser</requirement>
@@ -420,68 +420,68 @@
     </inputs>
     <configfiles>
         <configfile name="config_file">
-            #if str($config_source.config_source_select) == 'create':
-            max_rd_len=$config_source.max_read_length
-            #for $i in $config_source.libraries
-            [LIB]
-            ## Average insert size
-            avg_ins=$i.avg_ins
-            ## Reverse sequence?
-            reverse_seq=$i.reverse_seq
-            ## Read operations
-            asm_flags=$i.asm_flags
-            ## Use only first 100 bps of each read
-            #if str($i.rd_len_cutoff) != "":
-            rd_len_cutoff=$i.rd_len_cutoff
-            #end if
-            ## Rank
-            rank=$i.rank
-            #if str($i.pair_num_cutoff) != "":
-            ## The cutoff of a pair number for a reliable connection (at least 3 for short insert size)
-            pair_num_cutoff=$i.pair_num_cutoff
-            #end if
-            ## Minimum aligned length to contigs for a reliable read location (at least 32 for short insert size)
-            #if str($i.map_len) != "":
-            map_len=$i.map_len
-            #end if
-            #for $x in $i.files
-            ## Check if using single or paired reads
-            ##type_of_data=$x.data_type.single_paired
-            #if $x.data_type.single_paired == "single"
-            ##format_of_data=$x.data_type.data_format.fastq_fasta
-            #if $x.data_type.data_format.fastq_fasta == "fastq"
-            q=$x.data_type.data_format.input1
-            #else if $x.data_type.data_format.fastq_fasta == "fastq_gzipped"
-            q=${x.data_type.data_format.input1}.fq.gz
-            #else if $x.data_type.data_format.fastq_fasta == "fasta"
-            f=$x.data_type.data_format.input1
-            #else if $x.data_type.data_format.fastq_fasta == "fasta_gzipped"
-            f=${x.data_type.data_format.input1}.fa.gz
-            #else
-            b=$x.data_type.data_format.input1
-            #end if
-            #else
-            ##format_of_data=$i.data_type.data_format.fastq_fasta
-            #if $x.data_type.data_format.fastq_fasta == "fastq"
-            q1=$x.data_type.data_format.input1
-            q2=$x.data_type.data_format.input2
-            #else if $x.data_type.data_format.fastq_fasta == "fastq_gzipped"
-            q1=${x.data_type.data_format.input1}.fq.gz
-            q2=${x.data_type.data_format.input2}.fq.gz
-            #else if $x.data_type.data_format.fastq_fasta == "fasta"
-            f1=$x.data_type.data_format.input1
-            f2=$x.data_type.data_format.input2
-            #else if $x.data_type.data_format.fastq_fasta == "fasta_gzipped"
-            f1=${x.data_type.data_format.input1}.fa.gz
-            f2=${x.data_type.data_format.input2}.fa.gz
-            #else
-            b1=$x.data_type.data_format.input1
-            b2=$x.data_type.data_format.input2
-            #end if
-            #end if
-            #end for
-            #end for
-            #end if
+#if str($config_source.config_source_select) == 'create':
+  max_rd_len=$config_source.max_read_length
+  #for $i in $config_source.libraries
+    [LIB]
+    ## Average insert size
+    avg_ins=$i.avg_ins
+    ## Reverse sequence?
+    reverse_seq=$i.reverse_seq
+    ## Read operations
+    asm_flags=$i.asm_flags
+    ## Use only first 100 bps of each read
+    #if str($i.rd_len_cutoff) != "":
+      rd_len_cutoff=$i.rd_len_cutoff
+      #end if
+    ## Rank
+    rank=$i.rank
+    #if str($i.pair_num_cutoff) != "":
+      ## The cutoff of a pair number for a reliable connection (at least 3 for short insert size)
+      pair_num_cutoff=$i.pair_num_cutoff
+      #end if
+    ## Minimum aligned length to contigs for a reliable read location (at least 32 for short insert size)
+    #if str($i.map_len) != "":
+      map_len=$i.map_len
+      #end if
+    #for $x in $i.files
+      ## Check if using single or paired reads
+      ##type_of_data=$x.data_type.single_paired
+      #if $x.data_type.single_paired == "single"
+        ##format_of_data=$x.data_type.data_format.fastq_fasta
+        #if $x.data_type.data_format.fastq_fasta == "fastq"
+          q=$x.data_type.data_format.input1
+        #else if $x.data_type.data_format.fastq_fasta == "fastq_gzipped"
+          q=${x.data_type.data_format.input1}.fq.gz
+        #else if $x.data_type.data_format.fastq_fasta == "fasta"
+          f=$x.data_type.data_format.input1
+        #else if $x.data_type.data_format.fastq_fasta == "fasta_gzipped"
+          f=${x.data_type.data_format.input1}.fa.gz
+        #else
+          b=$x.data_type.data_format.input1
+          #end if
+      #else
+        ##format_of_data=$i.data_type.data_format.fastq_fasta
+        #if $x.data_type.data_format.fastq_fasta == "fastq"
+          q1=$x.data_type.data_format.input1
+          q2=$x.data_type.data_format.input2
+        #else if $x.data_type.data_format.fastq_fasta == "fastq_gzipped"
+          q1=${x.data_type.data_format.input1}.fq.gz
+          q2=${x.data_type.data_format.input2}.fq.gz
+        #else if $x.data_type.data_format.fastq_fasta == "fasta"
+          f1=$x.data_type.data_format.input1
+          f2=$x.data_type.data_format.input2
+        #else if $x.data_type.data_format.fastq_fasta == "fasta_gzipped"
+          f1=${x.data_type.data_format.input1}.fa.gz
+          f2=${x.data_type.data_format.input2}.fa.gz
+        #else
+          b1=$x.data_type.data_format.input1
+          b2=$x.data_type.data_format.input2
+          #end if
+        #end if
+      #end for
+    #end for
+    #end if
         </configfile>
     </configfiles>
     <outputs>
@@ -496,14 +496,19 @@
               label="closed.gaps.info">
         </data>
     </outputs>
-    <!--<tests>-->
-    <!--<test>-->
-    <!--<param name="max_read_length"-->
-    <!--value="50"/>-->
-    <!--<output name="contig"-->
-    <!--value="hello world"/>-->
-    <!--</test>-->
-    <!--</tests>-->
+    <tests>
+        <test>
+            <param name="scaff_in" value="soapdenovo1.scaffolds"/>
+            <param name="config_source_select" value="history"/>
+            <param name="own_file" value="phiX174/soap.config"/>
+            <param name="settings_type" value="default"/>
+            <output name="fill_info">
+                <assert_contents>
+                    <has_line line=">scaffold1" />
+                </assert_contents>
+            </output>
+        </test>
+    </tests>
     <help>
 **What it does**
 
