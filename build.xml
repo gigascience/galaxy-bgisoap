@@ -446,6 +446,19 @@
         <delete file="${build.dir}/gapcloser_1_10.tar"/>
     </target>
 
+    <target name="extract_acgt" depends="build">
+        <mkdir dir="${build.dir}/extract_acgt"/>
+        <copy todir="${build.dir}/extract_acgt">
+            <fileset dir="${tools.dir}/extract_acgt"/>
+        </copy>
+        <mkdir dir="${build.dir}/extract_acgt/test-data"/>
+        <copy file="${test-data.dir}/soapdenovo2.scaffolds" todir="${build.dir}/extract_acgt/test-data"/>
+
+        <tar destfile="${build.dir}/extract_acgt.tar" basedir="${build.dir}/extract_acgt"/>
+        <gzip destfile="${build.dir}/extract_acgt.tar.gz" src="${build.dir}/extract_acgt.tar"/>
+        <delete file="${build.dir}/extract_acgt.tar"/>
+    </target>
+
     <target name="clean" description="clean up">
         <!-- Delete build directory -->
         <delete dir="${build.dir}"/>
