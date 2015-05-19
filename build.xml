@@ -472,6 +472,19 @@
         <delete file="${build.dir}/stat.tar"/>
     </target>
 
+    <target name="merge_pair" depends="build">
+        <mkdir dir="${build.dir}/merge_pair"/>
+        <copy todir="${build.dir}/merge_pair">
+            <fileset dir="${tools.dir}/merge_pair"/>
+        </copy>
+        <mkdir dir="${build.dir}/merge_pair/test-data"/>
+        <!--<copy file="${test-data.dir}/gage.output" todir="${build.dir}/stat/test-data"/>-->
+
+        <tar destfile="${build.dir}/merge_pair.tar" basedir="${build.dir}/merge_pair"/>
+        <gzip destfile="${build.dir}/merge_pair.tar.gz" src="${build.dir}/merge_pair.tar"/>
+        <delete file="${build.dir}/merge_pair.tar"/>
+    </target>
+
     <target name="clean" description="clean up">
         <!-- Delete build directory -->
         <delete dir="${build.dir}"/>
