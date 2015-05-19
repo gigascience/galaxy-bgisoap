@@ -202,15 +202,16 @@ def main():
 
                 print source_single
 
-                os.path.exists(source_single)
-                if fnmatch.fnmatch(source_single, '*single*'):
+                # os.path.exists(source_single)
+                # if fnmatch.fnmatch(source_single, '*single*'):
+                if os.path.exists(source_single):
                     corrected_single_in = open(opts.corrected_single, 'w')
-                file_out2 = open(source_single, 'r')
-                data = file_out2.read()
-                corrected_single_in.write(data)
-                corrected_single_in.close()
-                file_out2.close()
-                done_single = True
+                    file_out2 = open(source_single, 'r')
+                    data = file_out2.read()
+                    corrected_single_in.write(data)
+                    corrected_single_in.close()
+                    file_out2.close()
+                    done_single = True
             except IOError:
                 print 'Cannot find ' + source_single
                 raise
