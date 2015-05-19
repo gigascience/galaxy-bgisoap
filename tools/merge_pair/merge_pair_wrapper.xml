@@ -3,6 +3,8 @@
     <command interpreter="python">
         merge_pair_wrapper.py
 
+        --tool_dir=$__tool_directory__
+
         ##Inputs
         --corr_filelist=$corr_filelist
 

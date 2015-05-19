@@ -26,6 +26,7 @@ def main():
     parser = optparse.OptionParser()
     # List of mandatory inputs and params
     parser.add_option("-i", "--corr_filelist", dest="corr_filelist")
+    parser.add_option("", "--tool_dir", dest="tool_dir")
 
     # Outputs for reads
     parser.add_option("", "--pair", dest="pair")
@@ -38,7 +39,7 @@ def main():
     print tmp_dir
 
     # Set up command line call
-    cmd = "perl ./merge_pair_list.pl %s" % opts.corr_filelist 
+    cmd = "perl %s/merge_pair_list.pl %s" % (opts.tool_dir, opts.corr_filelist)
     print cmd
 
     # Execute merge pair
