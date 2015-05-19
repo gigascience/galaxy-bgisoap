@@ -20,7 +20,7 @@ def stop_err(msg):
 
 def cleanup_before_exit(tmp_dir):
     if tmp_dir and os.path.exists(tmp_dir):
-        shutil.rmtree(tmp_dir)
+        shutil.rmtree(tmp_dir, ignore_errors=True)
 
 
 def main():
