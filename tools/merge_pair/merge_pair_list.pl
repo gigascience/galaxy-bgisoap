@@ -8,14 +8,16 @@ use strict;
 use warnings;
 use FindBin qw($Bin $Script);
 
-die "Usage: <fileName> \n" if(@ARGV < 1);
+die "Usage: <fileName> <tooldir> \n" if(@ARGV < 2);
 
-my $fileName = shift;
+
+my ($fileName, $tooldir) = @ARGV;
 my $pairFile1;
 my $pairFile2;
 my $outputFile;
 
 #my $i=0;
+print "Tool directory: '$tooldir'\n";
 open (IN, $fileName) || die "fail open $fileName\n";
 while (<IN>) {
 
@@ -33,7 +35,8 @@ while (<IN>) {
 
 	print "merging $outputFile\n";
 #	system "perl $Bin/merge_pair.pl $pairFile1 $pairFile2 $outputFile";
-    system "perl ./merge_pair.pl $pairFile1 $pairFile2 $outputFile";
+#   system "perl ./merge_pair.pl $pairFile1 $pairFile2 $outputFile";
+	system "perl '$tooldir'/merge_pair.pl $pairFile1 $pairFile2 $outputFile";
 	
 #	$i++;
 #	if ($i%25==0) {

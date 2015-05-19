@@ -39,7 +39,7 @@ def main():
     print tmp_dir
 
     # Set up command line call
-    cmd = "perl %s/merge_pair_list.pl %s" % (opts.tool_dir, opts.corr_filelist)
+    cmd = "perl %s/merge_pair_list.pl %s %s" % (opts.tool_dir, opts.corr_filelist, opts.tool_dir)
     print cmd
 
     # Execute merge pair
