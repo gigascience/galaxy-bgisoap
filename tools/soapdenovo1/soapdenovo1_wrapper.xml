@@ -357,12 +357,12 @@ b2=$x.data_type.data_format.input2
         <!-- Provide 2 files as output from SOAPdenovo-1.0 -->
         <data name="contig"
               type="data"
-              format="FASTA"
+              format="fasta"
               label="soapdvo1.out.contigs">
         </data>
         <data name="scafseq"
               type="data"
-              format="FASTA"
+              format="fasta"
               label="soapdvo1.out.scaffolds">
         </data>
         <!-- Provide config file in case its required for GapCloser -->
