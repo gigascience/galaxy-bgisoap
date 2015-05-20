@@ -42,13 +42,13 @@ def parse(tmp_dir, filename):
             myfile.write(newline + "\n")
         elif "q1=/home" in line:
             # if os.path.lexists(line[3:] + ".fq.clean") == -1:
-            if (not os.path.isfile(line[3:] + ".fq")):
+            if (not os.path.isfile(line[3:] + ".fq.clean")):
                 os.symlink(line[3:], line[3:] + ".fq.clean")
             newline = line + ".fq.clean"
             myfile.write(newline + "\n")
         elif "q2=/home" in line:
             # if os.path.lexists(line[3:] + ".fq.clean") == -1:
-            if (not os.path.isfile(line[3:] + ".fq")):
+            if (not os.path.isfile(line[3:] + ".fq.clean")):
                 os.symlink(line[3:], line[3:] + ".fq.clean")
             newline = line + ".fq.clean"
             myfile.write(newline + "\n")
