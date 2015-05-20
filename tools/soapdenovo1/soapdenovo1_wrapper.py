@@ -106,8 +106,8 @@ def main():
             cmd += " -d 1"
         if opts.unsolve_repeats == "yes":
             cmd += " -R"
-        if opts.fill_gaps_scaffold == "yes":
-            cmd += " -F"
+        # if opts.fill_gaps_scaffold == "yes":
+        #     cmd += " -F"
     #print cmd
 
     #Perform SOAPdenovo-1.0 analysis
