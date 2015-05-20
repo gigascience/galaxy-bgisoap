@@ -1,5 +1,4 @@
 <tool id="soapdenovo1_wrapper" name="SOAPdenovo1" version="1.0">
-    <description></description>
     <requirements>
         <requirement type="package" version="1.0">soapdenovo</requirement>
     </requirements>
@@ -9,8 +8,8 @@
         ## Reference source
         --file_source=$config_source.config_source_select
         #if $config_source.config_source_select == "history":
-        ##Select configuration from history
-        --configuration=$config_source.own_file
+          ##Select configuration from history
+          --configuration=$config_source.own_file
         #end if
 
         ## Check if using default or custom parameters
@@ -247,12 +246,11 @@
                value="23"
                max="31"
                label="k value in kmer"/>
-        <!--
         <param name="ncpu"
                type="integer"
-               value="8"
+               value="16"
+               max="16"
                label="Number of CPUs to use"/>
-        -->
         <!-- Need to add this
         <param name="shortest_contig_for_scaffold"
                type="integer"
@@ -278,6 +276,12 @@
             <option value="no">No</option>
             <option value="yes">Yes</option>
         </param>
+        <param name="fill_gaps_scaffold"
+               type="select"
+               label="Fill gaps in scaffold?">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+        </param>
         </when>
         </conditional>
     </inputs>
@@ -287,31 +291,31 @@
 max_rd_len=$config_source.max_read_length
   #for $i in $config_source.libraries
 [LIB]
-    ## Average insert size
+## Average insert size
 avg_ins=$i.avg_ins
-    ## Reverse sequence?
+## Reverse sequence?
 reverse_seq=$i.reverse_seq
-    ## Read operations
+## Read operations
 asm_flags=$i.asm_flags
-    ## Use only first 100 bps of each read
+## Use only first 100 bps of each read
     #if str($i.rd_len_cutoff) != "":
 rd_len_cutoff=$i.rd_len_cutoff
     #end if
-    ## Rank
+## Rank
 rank=$i.rank
     #if str($i.pair_num_cutoff) != "":
-      ## The cutoff of a pair number for a reliable connection (at least 3 for short insert size)
+## The cutoff of a pair number for a reliable connection (at least 3 for short insert size)
 pair_num_cutoff=$i.pair_num_cutoff
     #end if
-    ## Minimum aligned length to contigs for a reliable read location (at least 32 for short insert size)
+## Minimum aligned length to contigs for a reliable read location (at least 32 for short insert size)
     #if str($i.map_len) != "":
 map_len=$i.map_len
     #end if
     #for $x in $i.files
-      ## Check if using single or paired reads
-      ##type_of_data=$x.data_type.single_paired
+## Check if using single or paired reads
+##type_of_data=$x.data_type.single_paired
       #if $x.data_type.single_paired == "single"
-        ##format_of_data=$x.data_type.data_format.fastq_fasta
+##format_of_data=$x.data_type.data_format.fastq_fasta
         #if $x.data_type.data_format.fastq_fasta == "fastq"
 q=$x.data_type.data_format.input1
         #else if $x.data_type.data_format.fastq_fasta == "fastq_gzipped"
@@ -326,7 +330,7 @@ b=$x.data_type.data_format.input1
 p=$x.data_type.data_format.input1        
         #end if
       #else
-        ##format_of_data=$i.data_type.data_format.fastq_fasta
+##format_of_data=$i.data_type.data_format.fastq_fasta
         #if $x.data_type.data_format.fastq_fasta == "fastq"
 q1=$x.data_type.data_format.input1
 q2=$x.data_type.data_format.input2
