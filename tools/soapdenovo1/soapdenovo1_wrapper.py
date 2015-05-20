@@ -89,7 +89,7 @@ def main():
     print opts.configuration
 
     if opts.file_source == "history":
-        shutil.copyfile(opts.configuration, tmp_dir + '/soap.config')
+        shutil.copyfile(opts.configuration, tmp_dir + '/new_soap.config')
     else:
         shutil.copyfile(os.path.basename(script_filename), tmp_dir + '/soap.config')
         #Need to create soft links to dataset files and change the soap.config file
