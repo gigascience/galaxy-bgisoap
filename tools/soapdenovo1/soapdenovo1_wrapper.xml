@@ -16,13 +16,13 @@
         --default_full_settings_type=$default_full_settings.settings_type
         #if $default_full_settings.settings_type == "full"
           --kmer_size=$default_full_settings.kmer_size
-          ## Do not allow user to set number of cpus
-          ##--ncpu=$default_full_settings.ncpu
+          --ncpu=$default_full_settings.ncpu
           ##Need to add this
           ##--shortest_contig_for_scaffold=$default_full_settings.shortest_contig_for_scaffold
           --delete_kmers_freq_one=$default_full_settings.delete_kmers_freq_one
           --delete_edges_coverage_one=$default_full_settings.delete_edges_coverage_one
           --unsolve_repeats=$default_full_settings.unsolve_repeats
+          --fill_gaps_scaffold=$default_full_settings.fill_gaps_scaffold
         #end if
 
         ## Output files
