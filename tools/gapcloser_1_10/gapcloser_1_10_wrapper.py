@@ -20,12 +20,10 @@ def stop_err(msg):
 
 def cleanup_before_exit(tmp_dir):
     if tmp_dir and os.path.exists(tmp_dir):
-        shutil.rmtree(tmp_dir)
+        shutil.rmtree(tmp_dir, ignore_errors=True)
 
 
 def main():
-    thread_num = 4
-
     # Parse command line
     parser = optparse.OptionParser()
     parser.add_option("-a", "--scaff_in", dest="scaff_in")
@@ -62,7 +60,7 @@ def main():
     if opts.default_full_settings_type == "default":
         cmd = "GapCloser_v1.10 -a %s -b %s -o %s" % (opts.scaff_in, tmp_dir + '/soap.config', tmp_dir + "/gapclo.out")
     elif opts.default_full_settings_type == "full":
-        cmd = "GapCloser_v1.10 -a %s -b %s -o %s -p %s -t %s" % (opts.scaff_in, tmp_dir + '/soap.config', tmp_dir + "/gapclo.out", opts.overlap_param, thread_num)
+        cmd = "GapCloser_v1.10 -a %s -b %s -o %s -p %s -t %s" % (opts.scaff_in, tmp_dir + '/soap.config', tmp_dir + "/gapclo.out", opts.overlap_param, opts.thread_num)
 
     print cmd
 
