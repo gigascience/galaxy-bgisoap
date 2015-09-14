@@ -1,0 +1,11 @@
+name: package_soapdenovo_2_04
+owner: peterli
+description: Contains a tool dependency definition that downloads and extracts version
+  2.04 of SOAPdenovo.
+homepage_url: http://soap.genomics.org.cn/soapdenovo.html
+long_description: |
+    SOAPdenovo2 performs de novo assembly of genomes.
+remote_repository_url: https://github.com/gigascience/galaxy-bgisoap/tree/master/packages/package_soapdenovo_2_04
+type: tool_dependency_definition
+categories:
+- Tool Dependency Packages

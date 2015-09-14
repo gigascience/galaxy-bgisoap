@@ -1,0 +1,12 @@
+name: package_soap_2_21
+owner: peterli
+description: Contains a tool dependency definition that downloads and extracts version
+  2.21 of SOAP.
+homepage_url: http://soap.genomics.org.cn/soapaligner.html
+long_description: |
+    SOAP performs gapped and ungapped alignment of short oligonucleotides onto reference
+  sequences.
+remote_repository_url: https://github.com/gigascience/galaxy-bgisoap/tree/master/packages/package_soap_2_21
+type: tool_dependency_definition
+categories:
+- Tool Dependency Packages

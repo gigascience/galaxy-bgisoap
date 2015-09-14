@@ -1,0 +1,11 @@
+name: package_gapcloser_1_12
+owner: peterli
+description: Contains a tool dependency definition that downloads and extracts version
+  1.12 of GapCloser.
+homepage_url: http://soap.genomics.org.cn/index.html
+long_description: |
+    GapCloser is designed to close the gaps emerging during the scaffolding process by SOAPdenovo or another assembler using the abundant pair relationships of short reads.
+remote_repository_url: https://github.com/gigascience/galaxy-bgisoap/tree/master/packages/package_gapcloser_1_12
+type: tool_dependency_definition
+categories:
+- Tool Dependency Packages
