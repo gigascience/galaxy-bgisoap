@@ -5,7 +5,7 @@
     <!-- Global properties for build -->
     <property file="build.properties"/>
     <property name="build.dir" location="./build"/>
-    <property name="dependencies.dir" location="./dependencies"/>
+    <property name="packages.dir" location="./packages"/>
     <property name="data.managers.dir" location="./data_managers"/>
     <property name="test-data.dir" location="./test-data"/>
     <property name="tool-data.dir" location="./tool-data"/>
@@ -25,7 +25,7 @@
     <target name="package_soap_1_11" depends="build">
         <mkdir dir="${build.dir}/package_soap_1_11"/>
         <copy todir="${build.dir}/package_soap_1_11">
-            <fileset dir="${dependencies.dir}/package_soap_1_11"/>
+            <fileset dir="${packages.dir}/package_soap_1_11"/>
         </copy>
 
         <tar destfile="${build.dir}/package_soap_1_11.tar" basedir="${build.dir}/package_soap_1_11"/>
@@ -53,7 +53,7 @@
     <target name="package_soap_2_21" depends="build">
         <mkdir dir="${build.dir}/package_soap_2_21"/>
         <copy todir="${build.dir}/package_soap_2_21">
-            <fileset dir="${dependencies.dir}/package_soap_2_21"/>
+            <fileset dir="${packages.dir}/package_soap_2_21"/>
         </copy>
 
         <tar destfile="${build.dir}/package_soap_2_21.tar" basedir="${build.dir}/package_soap_2_21"/>
@@ -94,7 +94,7 @@
     <target name="package_soapdenovo_2_04" depends="build">
         <mkdir dir="${build.dir}/package_soapdenovo_2_04"/>
         <copy todir="${build.dir}/package_soapdenovo_2_04">
-            <fileset dir="${dependencies.dir}/package_soapdenovo_2_04"/>
+            <fileset dir="${packages.dir}/package_soapdenovo_2_04"/>
         </copy>
 
         <tar destfile="${build.dir}/package_soapdenovo_2_04.tar" basedir="${build.dir}/package_soapdenovo_2_04"/>
@@ -207,7 +207,7 @@
     <target name="package_soapec_2_0" depends="build">
         <mkdir dir="${build.dir}/package_soapec_2_0"/>
         <copy todir="${build.dir}/package_soapec_2_0">
-            <fileset dir="${dependencies.dir}/package_soapec_2_0"/>
+            <fileset dir="${packages.dir}/package_soapec_2_0"/>
         </copy>
 
         <tar destfile="${build.dir}/package_soapec_2_0.tar" basedir="${build.dir}/package_soapec_2_0"/>
@@ -254,7 +254,7 @@
     <target name="package_soapfilter_2_0" depends="build">
         <mkdir dir="${build.dir}/package_soapfilter_2_0"/>
         <copy todir="${build.dir}/package_soapfilter_2_0">
-            <fileset dir="${dependencies.dir}/package_soapfilter_2_0"/>
+            <fileset dir="${packages.dir}/package_soapfilter_2_0"/>
         </copy>
 
         <tar destfile="${build.dir}/package_soapfilter_2_0.tar" basedir="${build.dir}/package_soapfilter_2_0"/>
@@ -318,7 +318,7 @@
     <target name="package_gapcloser_1_12" depends="build">
         <mkdir dir="${build.dir}/package_gapcloser_1_12"/>
         <copy todir="${build.dir}/package_gapcloser_1_12">
-            <fileset dir="${dependencies.dir}/package_gapcloser_1_12"/>
+            <fileset dir="${packages.dir}/package_gapcloser_1_12"/>
         </copy>
 
         <tar destfile="${build.dir}/package_gapcloser_1_12.tar" basedir="${build.dir}/package_gapcloser_1_12"/>
@@ -347,7 +347,7 @@
     <target name="package_soapdenovo_1_0" depends="build">
         <mkdir dir="${build.dir}/package_soapdenovo_1_0"/>
         <copy todir="${build.dir}/package_soapdenovo_1_0">
-            <fileset dir="${dependencies.dir}/package_soapdenovo_1_0"/>
+            <fileset dir="${packages.dir}/package_soapdenovo_1_0"/>
         </copy>
 
         <tar destfile="${build.dir}/package_soapdenovo_1_0.tar" basedir="${build.dir}/package_soapdenovo_1_0"/>
@@ -376,7 +376,7 @@
     <target name="package_soapec_1_0" depends="build">
         <mkdir dir="${build.dir}/package_soapec_1_0"/>
         <copy todir="${build.dir}/package_soapec_1_0">
-            <fileset dir="${dependencies.dir}/package_soapec_1_0"/>
+            <fileset dir="${packages.dir}/package_soapec_1_0"/>
         </copy>
 
         <tar destfile="${build.dir}/package_soapec_1_0.tar" basedir="${build.dir}/package_soapec_1_0"/>
@@ -421,7 +421,7 @@
     <target name="package_gapcloser_1_10" depends="build">
         <mkdir dir="${build.dir}/package_gapcloser_1_10"/>
         <copy todir="${build.dir}/package_gapcloser_1_10">
-            <fileset dir="${dependencies.dir}/package_gapcloser_1_10"/>
+            <fileset dir="${packages.dir}/package_gapcloser_1_10"/>
         </copy>
 
         <tar destfile="${build.dir}/package_gapcloser_1_10.tar" basedir="${build.dir}/package_gapcloser_1_10"/>
